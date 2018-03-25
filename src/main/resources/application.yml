@@ -1,0 +1,4 @@
+#spring boot 配置文件
+spring:
+  profiles:
+    active: dev
