@@ -3,6 +3,7 @@ package cn.lan.bookstore.controller;
 import cn.lan.bookstore.response.BaseResponse;
 import cn.lan.bookstore.service.IUserBaseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/userInfo")
+@CrossOrigin(origins = "*")
 public class UserInfoController {
 
     @Autowired
