@@ -10,11 +10,13 @@ import lombok.Data;
 @Data
 public class UserBaseInfoDTO {
 
+
     private String userName;
 
     private Long phone;
 
     private String password;
 
+    private Integer role_code;
 
 }

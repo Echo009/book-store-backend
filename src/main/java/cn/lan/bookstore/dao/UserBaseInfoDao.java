@@ -1,6 +1,6 @@
 package cn.lan.bookstore.dao;
 
-import cn.lan.bookstore.entity.UserBaseInfoEntity;
+import cn.lan.bookstore.entity.common.UserBaseInfoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 

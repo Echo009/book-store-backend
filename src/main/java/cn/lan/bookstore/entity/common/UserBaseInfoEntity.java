@@ -1,4 +1,4 @@
-package cn.lan.bookstore.entity;
+package cn.lan.bookstore.entity.common;
 
 import lombok.Data;
 
@@ -20,7 +20,7 @@ public class UserBaseInfoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     private String userName;
 
@@ -29,5 +29,7 @@ public class UserBaseInfoEntity {
     private Long phone;
 
     private String password;
+
+    private Integer roleCode ;
 
 }

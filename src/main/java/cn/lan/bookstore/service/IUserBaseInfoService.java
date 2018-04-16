@@ -1,7 +1,8 @@
 package cn.lan.bookstore.service;
 
+import cn.lan.bookstore.dto.ResultDTO;
 import cn.lan.bookstore.dto.UserBaseInfoDTO;
-import cn.lan.bookstore.entity.UserBaseInfoEntity;
+import cn.lan.bookstore.entity.common.UserBaseInfoEntity;
 
 /**
  * Author : Ech0
@@ -22,7 +23,7 @@ public interface IUserBaseInfoService {
      * @param userBaseInfoDTO
      * @return
      */
-    boolean check(UserBaseInfoDTO userBaseInfoDTO);
+    ResultDTO<UserBaseInfoEntity> check(UserBaseInfoDTO userBaseInfoDTO);
 
     /**
      * 校验用户名是否存在

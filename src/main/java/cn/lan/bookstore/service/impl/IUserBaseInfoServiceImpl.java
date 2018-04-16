@@ -1,8 +1,9 @@
 package cn.lan.bookstore.service.impl;
 
 import cn.lan.bookstore.dao.UserBaseInfoDao;
+import cn.lan.bookstore.dto.ResultDTO;
 import cn.lan.bookstore.dto.UserBaseInfoDTO;
-import cn.lan.bookstore.entity.UserBaseInfoEntity;
+import cn.lan.bookstore.entity.common.UserBaseInfoEntity;
 import cn.lan.bookstore.service.IUserBaseInfoService;
 import cn.lan.bookstore.util.Encrypter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,19 +40,25 @@ public class IUserBaseInfoServiceImpl implements IUserBaseInfoService {
      * @return
      */
     @Override
-    public boolean check(UserBaseInfoDTO userBaseInfoDTO) {
+    public ResultDTO<UserBaseInfoEntity> check(UserBaseInfoDTO userBaseInfoDTO) {
 
         userBaseInfoDTO.setPassword(Encrypter.md5(userBaseInfoDTO.getPassword()));
+
+        UserBaseInfoEntity currentUser;
         if (userBaseInfoDTO.getPhone() != null) {
-            if ((userBaseInfoDao.findByPhoneEqualsAndPassword(userBaseInfoDTO.getPhone(), userBaseInfoDTO.getPassword()) == null)) {
-                return false;
-            }
-            else return true;
+            currentUser = userBaseInfoDao.findByPhoneEqualsAndPassword(
+                    userBaseInfoDTO.getPhone(),
+                    userBaseInfoDTO.getPassword());
+            if (currentUser == null) {
+                return ResultDTO.BAD_RESULT;
+            } else
+                return new ResultDTO<>(true, currentUser);
         } else {
-            if (userBaseInfoDao.findByUserNameAndPassword(userBaseInfoDTO.getUserName(), userBaseInfoDTO.getPassword()) == null) {
-                return false;
-            }
-            else return true;
+            currentUser = userBaseInfoDao.findByUserNameAndPassword(userBaseInfoDTO.getUserName(), userBaseInfoDTO.getPassword());
+            if (currentUser == null) {
+                return ResultDTO.BAD_RESULT;
+            } else
+                return new ResultDTO<>(true, currentUser);
         }
     }
 

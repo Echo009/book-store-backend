@@ -2,7 +2,9 @@ package cn.lan.bookstore.controller;
 
 import cn.lan.bookstore.common.Const;
 import cn.lan.bookstore.convertor.UserInfoVOConvertor;
+import cn.lan.bookstore.dto.ResultDTO;
 import cn.lan.bookstore.dto.UserBaseInfoDTO;
+import cn.lan.bookstore.entity.common.UserBaseInfoEntity;
 import cn.lan.bookstore.enums.LoginStatusEnum;
 import cn.lan.bookstore.enums.ResponseCodeEnum;
 import cn.lan.bookstore.response.BaseResponse;
@@ -56,7 +58,7 @@ public class CommonController {
         return BaseResponse.SUCCESS;
     }
     @PostMapping("/login")
-    public BaseResponse<String> login(@RequestParam(value = "userName",required = false)String username,
+    public BaseResponse<UserBaseInfoDTO> login(@RequestParam(value = "userName",required = false)String username,
                                       @RequestParam(value = "phone",required = false) Long phone ,
                                       @RequestParam(value = "password",required = false) String password,
                                       HttpSession httpSession) {
@@ -65,17 +67,27 @@ public class CommonController {
             return BaseResponse.SUCCESS;
         }
         if (username == null && phone == null) {
-            return new BaseResponse<String>(ResponseCodeEnum.INCOMPLETE_INFO);
+            return new BaseResponse(ResponseCodeEnum.INCOMPLETE_INFO);
         }
         // check password
         UserBaseInfoDTO userBaseInfoDTO = new UserBaseInfoDTO();
         userBaseInfoDTO.setUserName(username);
         userBaseInfoDTO.setPhone(phone);
         userBaseInfoDTO.setPassword(password);
-        if (userBaseInfoService.check(userBaseInfoDTO)) {
+        ResultDTO<UserBaseInfoEntity> resultDTO = userBaseInfoService.check(userBaseInfoDTO);
+        if (resultDTO.isSuccess()) {
             // 标记登录状态
             httpSession.setAttribute(Const.LOGIN_STATUS, LoginStatusEnum.LOGIN.getCode());
-            return BaseResponse.SUCCESS;
-        } else return new BaseResponse<String>(ResponseCodeEnum.INCOMPLETE_INFO);
+
+            // return role info of current user
+
+            // clear password
+            userBaseInfoDTO.setPassword(null);
+            userBaseInfoDTO.setRole_code(resultDTO.getData().getRoleCode());
+            userBaseInfoDTO.setUserName(resultDTO.getData().getUserName());
+            return new BaseResponse<UserBaseInfoDTO>(ResponseCodeEnum.SUCCESS.getCode(),ResponseCodeEnum.SUCCESS.getDesc(),userBaseInfoDTO);
+
+
+        } else return new BaseResponse(ResponseCodeEnum.INCOMPLETE_INFO);
     }
 }

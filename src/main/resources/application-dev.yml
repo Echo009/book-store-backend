@@ -10,5 +10,5 @@ spring:
     password: ironman2014
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     show-sql: true
