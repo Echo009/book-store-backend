@@ -6,28 +6,35 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Date;
 
 /**
  * Author : Ech0
  * Email  : ech0.extreme@foxmail.com
- * Time   : 04/16/2018 04:43 PM
+ * Time   : 04/16/2018 10:08 PM
  */
-
-@Entity(name = "favorite")
+@Entity(name = "address")
 @Data
-public class FavoriteEntity {
+public class AddressEntity {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private Long user_id;
 
-    private Long userId;
+    private String name;
 
-    private Short type;
+    private Long phone;
 
-    private Long contentId;
+    private String country;
 
-    private Date createTime;
+    private String province;
+
+    private String city;
+
+    private String area;
+
+    private String detail;
+
 }
