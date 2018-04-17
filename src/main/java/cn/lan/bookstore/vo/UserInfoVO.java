@@ -7,6 +7,7 @@ import org.springframework.util.StringUtils;
  * Author : Ech0
  * Email  : ech0.extreme@foxmail.com
  * Time   : 03/20/2018 12:35 PM
+ * @author Ech0
  */
 @Data
 public class UserInfoVO {

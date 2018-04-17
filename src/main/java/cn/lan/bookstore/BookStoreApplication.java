@@ -3,6 +3,9 @@ package cn.lan.bookstore;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author Ech0
+ */
 @SpringBootApplication
 public class BookStoreApplication {
 

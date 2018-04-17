@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Author : Ech0
  * Email  : ech0.extreme@foxmail.com
  * Time   : 03/16/2018 03:35 PM
+ * @author Ech0
  */
 @RestController
 @RequestMapping("/userInfo")

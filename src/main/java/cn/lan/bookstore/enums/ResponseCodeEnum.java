@@ -7,6 +7,7 @@ import lombok.Getter;
  * Author : Ech0
  * Email  : ech0.extreme@foxmail.com
  * Time   : 03/16/2018 03:39 PM
+ * @author Ech0
  */
 @Getter
 public enum  ResponseCodeEnum {

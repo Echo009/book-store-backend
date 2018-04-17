@@ -13,6 +13,7 @@ import javax.persistence.Id;
  * Time   : 03/16/2018 02:17 PM
  *
  *  用户基础信息
+ * @author Ech0
  */
 @Entity(name = "user_base_info")
 @Data

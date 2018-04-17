@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
  * Author : Ech0
  * Email  : ech0.extreme@foxmail.com
  * Time   : 03/20/2018 12:31 PM
+ * @author Ech0
  */
 @RestController
 @RequestMapping("/common")
@@ -88,6 +89,8 @@ public class CommonController {
             return new BaseResponse<UserBaseInfoDTO>(ResponseCodeEnum.SUCCESS.getCode(),ResponseCodeEnum.SUCCESS.getDesc(),userBaseInfoDTO);
 
 
-        } else return new BaseResponse(ResponseCodeEnum.INCOMPLETE_INFO);
+        } else {
+            return new BaseResponse(ResponseCodeEnum.INCOMPLETE_INFO);
+        }
     }
 }

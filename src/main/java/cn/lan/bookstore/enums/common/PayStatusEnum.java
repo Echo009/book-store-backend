@@ -7,6 +7,7 @@ import lombok.Getter;
  * Author : Ech0
  * Email  : ech0.extreme@foxmail.com
  * Time   : 04/16/2018 10:14 PM
+ * @author Ech0
  */
 @Getter
 public enum  PayStatusEnum implements CodeEnum {

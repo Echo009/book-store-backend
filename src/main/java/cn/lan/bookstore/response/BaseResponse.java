@@ -10,6 +10,7 @@ import java.io.Serializable;
  * Author : Ech0
  * Email  : ech0.extreme@foxmail.com
  * Time   : 03/16/2018 03:37 PM
+ * @author Ech0
  */
 @Data
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)

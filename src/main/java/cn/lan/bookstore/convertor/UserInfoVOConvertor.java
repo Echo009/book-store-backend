@@ -9,6 +9,7 @@ import cn.lan.bookstore.vo.UserInfoVO;
  * Author : Ech0
  * Email  : ech0.extreme@foxmail.com
  * Time   : 03/20/2018 12:53 PM
+ * @author Ech0
  */
 public class UserInfoVOConvertor {
 

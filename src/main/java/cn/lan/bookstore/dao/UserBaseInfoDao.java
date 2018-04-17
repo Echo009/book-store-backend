@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
  * Author : Ech0
  * Email  : ech0.extreme@foxmail.com
  * Time   : 03/16/2018 02:24 PM
+ * @author Ech0
  */
 @Component
 public interface UserBaseInfoDao extends JpaRepository<UserBaseInfoEntity, Integer> {

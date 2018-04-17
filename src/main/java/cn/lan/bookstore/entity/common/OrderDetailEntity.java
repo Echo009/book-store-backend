@@ -12,6 +12,7 @@ import java.math.BigDecimal;
  * Author : Ech0
  * Email  : ech0.extreme@foxmail.com
  * Time   : 04/16/2018 10:22 PM
+ * @author Ech0
  */
 
 @Entity(name = "order_detail")

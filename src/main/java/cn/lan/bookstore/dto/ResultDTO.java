@@ -6,6 +6,7 @@ import lombok.Data;
  * Author : Ech0
  * Email  : ech0.extreme@foxmail.com
  * Time   : 04/16/2018 03:07 PM
+ * @author Ech0
  */
 @Data
 public class ResultDTO<T> {
