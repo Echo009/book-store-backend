@@ -8,5 +8,7 @@ package cn.lan.bookstore.common;
 public interface Const {
 
     String LOGIN_STATUS = "login_status";
+    String CURRENT_USER = "current_user";
+
 
 }

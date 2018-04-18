@@ -12,18 +12,20 @@ import lombok.Getter;
 @Getter
 public enum  ResponseCodeEnum {
 
-    SUCCESS(0, "success"),
-    ERROR(1, "error"),
+    SUCCESS(0, "success !"),
+    ERROR(1, "error !"),
     /**
      * register
      */
-    INVALID_PHONE(101, "invalid phone number"),
-    INVALID_USERNAME(102, "invalid username"),
+    INVALID_PHONE(101, "invalid phone number !"),
+    INVALID_USERNAME(102, "invalid username !"),
     /**
      * login
      */
-    INCOMPLETE_INFO(111,"incomplete_info"),
-    INCORRECT_INFO(112,"incorrect info");
+    INCOMPLETE_INFO(111,"incomplete info !"),
+    INCORRECT_INFO(112,"incorrect info !"),
+    REPEAT_LOGIN(113,"repeat login !");
+
 
 
     private final Integer code;

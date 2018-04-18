@@ -27,8 +27,9 @@ public class UserInfoController {
         // 用戶名已經存在
         if (IUserBaseInfoService.checkUserName(userName)) {
             return BaseResponse.SUCCESS;
-        }else
+        }else {
             return BaseResponse.ERROR;
+        }
     }
 
     @RequestMapping("/checkUserPhone")
@@ -36,8 +37,9 @@ public class UserInfoController {
         // 手机号码存在
         if (IUserBaseInfoService.checkPhone(phone)) {
             return BaseResponse.SUCCESS;
-        }else
+        }else {
             return BaseResponse.ERROR;
+        }
     }
 
 

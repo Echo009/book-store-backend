@@ -52,14 +52,16 @@ public class IUserBaseInfoServiceImpl implements IUserBaseInfoService {
                     userBaseInfoDTO.getPassword());
             if (currentUser == null) {
                 return ResultDTO.BAD_RESULT;
-            } else
+            } else {
                 return new ResultDTO<>(true, currentUser);
+            }
         } else {
             currentUser = userBaseInfoDao.findByUserNameAndPassword(userBaseInfoDTO.getUserName(), userBaseInfoDTO.getPassword());
             if (currentUser == null) {
                 return ResultDTO.BAD_RESULT;
-            } else
+            } else {
                 return new ResultDTO<>(true, currentUser);
+            }
         }
     }
 

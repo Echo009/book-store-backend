@@ -65,7 +65,7 @@ public class CommonController {
                                       HttpSession httpSession) {
         // has login ?
         if (LoginStatusEnum.LOGIN.getCode().equals(httpSession.getAttribute(Const.LOGIN_STATUS))) {
-            return BaseResponse.SUCCESS;
+            return new BaseResponse(ResponseCodeEnum.REPEAT_LOGIN);
         }
         if (username == null && phone == null) {
             return new BaseResponse(ResponseCodeEnum.INCOMPLETE_INFO);
@@ -86,11 +86,27 @@ public class CommonController {
             userBaseInfoDTO.setPassword(null);
             userBaseInfoDTO.setRole_code(resultDTO.getData().getRoleCode());
             userBaseInfoDTO.setUserName(resultDTO.getData().getUserName());
+
+            // 存储用户基本信息
+            httpSession.setAttribute(Const.CURRENT_USER,userBaseInfoDTO);
             return new BaseResponse<UserBaseInfoDTO>(ResponseCodeEnum.SUCCESS.getCode(),ResponseCodeEnum.SUCCESS.getDesc(),userBaseInfoDTO);
 
 
         } else {
-            return new BaseResponse(ResponseCodeEnum.INCOMPLETE_INFO);
+            return new BaseResponse(ResponseCodeEnum.INCORRECT_INFO);
+        }
+    }
+
+    @RequestMapping("/logout")
+    public BaseResponse logout(HttpSession httpSession){
+        // has login ?
+        if (LoginStatusEnum.LOGIN.getCode().equals(httpSession.getAttribute(Const.LOGIN_STATUS))) {
+            httpSession.removeAttribute(Const.LOGIN_STATUS);
+            httpSession.removeAttribute(Const.CURRENT_USER);
+            return new BaseResponse(ResponseCodeEnum.SUCCESS);
+        }
+        else {
+            return new BaseResponse(ResponseCodeEnum.ERROR);
         }
     }
 }
