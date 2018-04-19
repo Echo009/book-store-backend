@@ -15,6 +15,11 @@ target/
 *.iml
 *.ipr
 
+
+*-dev.yml
+*-prod.yml
+
+
 ### NetBeans ###
 nbproject/private/
 build/

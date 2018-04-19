@@ -22,6 +22,6 @@ public class CategoryEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String desc ;
+    private String tag ;
 
 }
