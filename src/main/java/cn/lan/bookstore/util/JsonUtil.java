@@ -15,11 +15,12 @@ public class JsonUtil {
      * @param object
      * @return
      */
-    public static String toJson(Object object){
+    public static String toJson(Object object , boolean withPrettyPrint){
         GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.setPrettyPrinting();
+        if (withPrettyPrint) {
+            gsonBuilder.setPrettyPrinting();
+        }
         Gson gson = gsonBuilder.create();
         return gson.toJson(object);
     }
-
 }

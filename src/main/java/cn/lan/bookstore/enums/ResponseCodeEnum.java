@@ -24,10 +24,17 @@ public enum  ResponseCodeEnum {
      */
     INCOMPLETE_INFO(111,"incomplete info !"),
     INCORRECT_INFO(112,"incorrect info !"),
-    REPEAT_LOGIN(113,"repeat login !");
+    REPEAT_LOGIN(113,"repeat login !"),
+
+    /**
+     *  Privilege
+     */
+    NO_LOGIN(121,"not logged in !"),
+    NO_PRIVILEGE(122," permission denied !"),
+    INVALID_TOKEN(123,"invalid token !"),
 
 
-
+    ;
     private final Integer code;
 
     private final String desc;

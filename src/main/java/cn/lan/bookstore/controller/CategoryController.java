@@ -1,4 +1,4 @@
-package cn.lan.bookstore.controller.seller;
+package cn.lan.bookstore.controller;
 
 import cn.lan.bookstore.entity.seller.CategoryEntity;
 import cn.lan.bookstore.response.BaseResponse;
