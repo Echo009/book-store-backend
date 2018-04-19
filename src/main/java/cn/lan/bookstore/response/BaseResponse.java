@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Author : Ech0
@@ -41,4 +42,15 @@ public class BaseResponse<T> implements Serializable {
         ERROR = new BaseResponse(ResponseCodeEnum.ERROR.getCode(), ResponseCodeEnum.ERROR.getDesc(), null);
     }
 
+    public BaseResponse(boolean isSuccess, T data) {
+
+       this.data  = data ;
+        if (isSuccess) {
+            this.code = ResponseCodeEnum.SUCCESS.getCode();
+            this.desc = ResponseCodeEnum.SUCCESS.getDesc();
+        }else {
+            this.code = ResponseCodeEnum.ERROR.getCode();
+            this.desc = ResponseCodeEnum.ERROR.getDesc();
+        }
+    }
 }

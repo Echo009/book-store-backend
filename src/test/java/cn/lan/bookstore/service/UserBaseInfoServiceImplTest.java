@@ -1,6 +1,6 @@
 package cn.lan.bookstore.service;
 
-import cn.lan.bookstore.service.impl.IUserBaseInfoServiceImpl;
+import cn.lan.bookstore.service.impl.UserBaseInfoServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +15,10 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class IUserBaseInfoServiceImplTest {
+public class UserBaseInfoServiceImplTest {
 
     @Autowired
-    private IUserBaseInfoServiceImpl userBaseInfoService;
+    private UserBaseInfoServiceImpl userBaseInfoService;
 
     @Test
     public void checkUserNameTest(){

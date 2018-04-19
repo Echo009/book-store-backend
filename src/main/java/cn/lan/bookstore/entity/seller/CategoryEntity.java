@@ -2,10 +2,7 @@ package cn.lan.bookstore.entity.seller;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Author : Ech0
@@ -14,13 +11,15 @@ import javax.persistence.Id;
  * @author Ech0
  */
 
-@Entity(name = "category")
+@Entity
 @Data
+@Table(name = "category",uniqueConstraints = @UniqueConstraint(columnNames = {"tag"}))
 public class CategoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
 
     private String tag ;
 

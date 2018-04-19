@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @author Ech0
  */
 @Service
-public class IUserBaseInfoServiceImpl implements IUserBaseInfoService {
+public class UserBaseInfoServiceImpl implements IUserBaseInfoService {
 
     @Autowired
     private UserBaseInfoDao userBaseInfoDao;
