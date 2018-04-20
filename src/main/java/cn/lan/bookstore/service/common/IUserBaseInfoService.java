@@ -1,4 +1,4 @@
-package cn.lan.bookstore.service;
+package cn.lan.bookstore.service.common;
 
 import cn.lan.bookstore.dto.ResultDTO;
 import cn.lan.bookstore.dto.UserBaseInfoDTO;
@@ -40,4 +40,12 @@ public interface IUserBaseInfoService {
      */
     boolean checkPhone(Long phone);
 
+    /**
+     * 查询用户信息
+     * @param id
+     * @return
+     */
+    UserBaseInfoEntity findUserInfoById(Long id);
+
+    UserBaseInfoEntity updateUserInfo(UserBaseInfoEntity userBaseInfoEntity);
 }

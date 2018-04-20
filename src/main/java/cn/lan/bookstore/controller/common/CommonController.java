@@ -1,4 +1,4 @@
-package cn.lan.bookstore.controller;
+package cn.lan.bookstore.controller.common;
 
 import cn.lan.bookstore.constant.CookieConstant;
 import cn.lan.bookstore.constant.RedisConstant;
@@ -8,7 +8,7 @@ import cn.lan.bookstore.dto.UserBaseInfoDTO;
 import cn.lan.bookstore.entity.common.UserBaseInfoEntity;
 import cn.lan.bookstore.enums.ResponseCodeEnum;
 import cn.lan.bookstore.response.BaseResponse;
-import cn.lan.bookstore.service.IUserBaseInfoService;
+import cn.lan.bookstore.service.common.IUserBaseInfoService;
 import cn.lan.bookstore.util.CookiesUtil;
 import cn.lan.bookstore.util.JsonUtil;
 import cn.lan.bookstore.vo.UserInfoVO;
@@ -103,7 +103,8 @@ public class CommonController {
             Integer expire = RedisConstant.EXPIRE;
 
             userBaseInfoDTO.setPassword(null);
-            userBaseInfoDTO.setRole_code(resultDTO.getData().getRoleCode());
+            userBaseInfoDTO.setUserId(resultDTO.getData().getId());
+            userBaseInfoDTO.setRoleCode(resultDTO.getData().getRoleCode());
             userBaseInfoDTO.setUserName(resultDTO.getData().getUserName());
             // 将token 以及用户基本信息 写入redis
             redisTemplate.opsForValue().set(

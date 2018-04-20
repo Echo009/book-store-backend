@@ -1,6 +1,6 @@
 package cn.lan.bookstore.service;
 
-import cn.lan.bookstore.service.impl.UserBaseInfoServiceImpl;
+import cn.lan.bookstore.service.common.impl.UserBaseInfoServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

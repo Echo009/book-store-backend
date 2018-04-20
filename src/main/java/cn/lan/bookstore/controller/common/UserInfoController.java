@@ -1,7 +1,7 @@
-package cn.lan.bookstore.controller;
+package cn.lan.bookstore.controller.common;
 
 import cn.lan.bookstore.response.BaseResponse;
-import cn.lan.bookstore.service.IUserBaseInfoService;
+import cn.lan.bookstore.service.common.IUserBaseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

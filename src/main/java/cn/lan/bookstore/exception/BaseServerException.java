@@ -21,4 +21,9 @@ public class BaseServerException extends RuntimeException{
         super(responseCodeEnum.getDesc());
         this.code = responseCodeEnum.getCode();
     }
+
+    public BaseServerException(Integer code, String msg) {
+        super(msg);
+        this.code =code;
+    }
 }

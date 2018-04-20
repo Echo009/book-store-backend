@@ -11,14 +11,18 @@ import lombok.Getter;
  */
 @Getter
 public enum  ResponseCodeEnum {
-
+    /**
+     * common
+     */
     SUCCESS(0, "success !"),
     ERROR(1, "error !"),
+    ILLEGAL_ARGUMENT(3,"illegal arguments !"),
     /**
      * register
      */
     INVALID_PHONE(101, "invalid phone number !"),
     INVALID_USERNAME(102, "invalid username !"),
+    INVALID_STORE_NAME(103, "invalid store name !"),
     /**
      * login
      */
@@ -32,6 +36,7 @@ public enum  ResponseCodeEnum {
     NO_LOGIN(121,"not logged in !"),
     NO_PRIVILEGE(122," permission denied !"),
     INVALID_TOKEN(123,"invalid token !"),
+    VIOLATION_OPERATION(124,"violation operation !"),
 
 
     ;

@@ -1,5 +1,6 @@
 package cn.lan.bookstore.entity.seller;
 
+import cn.lan.bookstore.enums.seller.ProductStatusEnum;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -50,6 +51,7 @@ public class BookEntity {
      */
     private String category;
 
-    private Integer status;
+
+    private Integer status = ProductStatusEnum.ON_SALE.getCode();
 
 }

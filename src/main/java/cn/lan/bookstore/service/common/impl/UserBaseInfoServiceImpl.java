@@ -1,10 +1,10 @@
-package cn.lan.bookstore.service.impl;
+package cn.lan.bookstore.service.common.impl;
 
 import cn.lan.bookstore.dao.UserBaseInfoDao;
 import cn.lan.bookstore.dto.ResultDTO;
 import cn.lan.bookstore.dto.UserBaseInfoDTO;
 import cn.lan.bookstore.entity.common.UserBaseInfoEntity;
-import cn.lan.bookstore.service.IUserBaseInfoService;
+import cn.lan.bookstore.service.common.IUserBaseInfoService;
 import cn.lan.bookstore.util.Encrypter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,5 +85,21 @@ public class UserBaseInfoServiceImpl implements IUserBaseInfoService {
     @Override
     public boolean checkPhone(Long phone) {
         return userBaseInfoDao.findAllByPhone(phone) == null ? false : true;
+    }
+
+    /**
+     * 查询用户信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public UserBaseInfoEntity findUserInfoById(Long id) {
+        return userBaseInfoDao.findById(id);
+    }
+
+    @Override
+    public UserBaseInfoEntity updateUserInfo(UserBaseInfoEntity userBaseInfoEntity) {
+        return userBaseInfoDao.saveAndFlush(userBaseInfoEntity);
     }
 }

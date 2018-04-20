@@ -1,5 +1,6 @@
 package cn.lan.bookstore.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
 /**
@@ -9,8 +10,10 @@ import lombok.Data;
  * @author Ech0
  */
 @Data
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class UserBaseInfoDTO {
 
+    private Long userId;
 
     private String userName;
 
@@ -18,6 +21,6 @@ public class UserBaseInfoDTO {
 
     private String password;
 
-    private Integer role_code;
+    private Integer roleCode;
 
 }

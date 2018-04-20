@@ -1,11 +1,9 @@
 package cn.lan.bookstore.entity.seller;
 
+import cn.lan.bookstore.enums.seller.StoreStatusEnum;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -14,8 +12,9 @@ import java.util.Date;
  * Time   : 04/16/2018 04:05 PM
  * @author Ech0
  */
-@Entity(name = "store")
 @Data
+@Entity
+@Table(name = "store",uniqueConstraints = {@UniqueConstraint(columnNames = {"userId"}) ,@UniqueConstraint(columnNames = {"storeName"})} )
 public class StoreEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,10 +25,16 @@ public class StoreEntity {
 
     private String storeName;
 
+    private String storeCoverImg;
+
     private Date registDate;
+
+    private Date updateDate;
 
     private Long registerPhone;
 
     private String bankNum ;
+
+    private Integer status = StoreStatusEnum.VALID.getCode();
 
 }
