@@ -41,6 +41,8 @@ public class BookEntity {
 
     private BigDecimal currentPrice;
 
+    private Integer Sales;
+
     private Integer stock;
     /**
      * 封面图片地址，多个图片之间以 ; 分隔

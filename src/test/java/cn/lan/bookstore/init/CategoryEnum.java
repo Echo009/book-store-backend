@@ -17,7 +17,7 @@ public enum CategoryEnum {
     ART("艺术"),
     CARTON("卡通"),
     EDUCATION("教育"),
-    SCIENCE("科学"),
+    SCIENCE("科技"),
     HISTORY("历史"),
     LIFE("生活");
 

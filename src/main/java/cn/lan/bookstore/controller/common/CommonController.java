@@ -12,6 +12,7 @@ import cn.lan.bookstore.service.common.IUserBaseInfoService;
 import cn.lan.bookstore.util.CookiesUtil;
 import cn.lan.bookstore.util.JsonUtil;
 import cn.lan.bookstore.vo.UserInfoVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -34,6 +36,7 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/common")
 @CrossOrigin(origins = "*")
+@Slf4j
 public class CommonController {
 
     @Autowired
@@ -83,11 +86,13 @@ public class CommonController {
             String value = redisTemplate.opsForValue().get(String.format(RedisConstant.TOKEN_PREFIX, cookie.getValue()));
             if (!StringUtils.isEmpty(value)) {
                 // 已经登录
+                log.warn("【登录】重复登录 current user：{}",value);
                 return new BaseResponse(ResponseCodeEnum.REPEAT_LOGIN);
             }
         }
 
         if (username == null && phone == null) {
+            log.warn("【登录】用户信息不完整 ");
             return new BaseResponse(ResponseCodeEnum.INCOMPLETE_INFO);
         }
         // check password
@@ -106,11 +111,14 @@ public class CommonController {
             userBaseInfoDTO.setUserId(resultDTO.getData().getId());
             userBaseInfoDTO.setRoleCode(resultDTO.getData().getRoleCode());
             userBaseInfoDTO.setUserName(resultDTO.getData().getUserName());
+            userBaseInfoDTO.setHeadImg(resultDTO.getData().getHeadImg());
             // 将token 以及用户基本信息 写入redis
+            String currentUserInfo = JsonUtil.toJson(userBaseInfoDTO, true);
             redisTemplate.opsForValue().set(
                     String.format(RedisConstant.TOKEN_PREFIX, token),
-                    JsonUtil.toJson(userBaseInfoDTO, false),
+                    currentUserInfo,
                     expire, TimeUnit.SECONDS);
+            log.info("【登录】write redis , token : {} current user :{}",token,currentUserInfo);
 
             // 写入cookie ， 注意与redis中的值不同在于没有前缀
             CookiesUtil.set(response, CookieConstant.TOKEN, token, expire);
@@ -118,6 +126,7 @@ public class CommonController {
             return new BaseResponse<UserBaseInfoDTO>(ResponseCodeEnum.SUCCESS.getCode(), ResponseCodeEnum.SUCCESS.getDesc(), userBaseInfoDTO);
 
         } else {
+            log.warn("【登录】用户信息错误 current user :{}",username);
             return new BaseResponse(ResponseCodeEnum.INCORRECT_INFO);
         }
     }
@@ -127,7 +136,19 @@ public class CommonController {
                                HttpServletResponse response) {
 
         Cookie cookie = CookiesUtil.get(request, CookieConstant.TOKEN);
+        for (Cookie item : request.getCookies()) {
+            log.info("【注销】 cookie of request : {} - {}" , item.getName(),item.getValue() );
+        }
         if (cookie!=null) {
+            String userString = redisTemplate.opsForValue()
+                    .get(String.format(RedisConstant.TOKEN_PREFIX, cookie.getValue()));
+            if (userString == null) {
+                log.warn("【注销】无效token : {}",cookie.getValue());
+                // 清除 cookie
+                CookiesUtil.set(response, CookieConstant.TOKEN, null, 0);
+                return new BaseResponse(ResponseCodeEnum.ERROR);
+            }
+            log.info("【注销登录】current user : {}",userString);
             // 清除 redis中的数据
             redisTemplate.opsForValue().getOperations()
                     .delete(String.format(RedisConstant.TOKEN_PREFIX, cookie.getValue()));
