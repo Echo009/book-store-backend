@@ -16,7 +16,7 @@ public enum  ResponseCodeEnum {
      */
     SUCCESS(0, "success !"),
     ERROR(1, "error !"),
-    ILLEGAL_ARGUMENT(3,"illegal arguments !"),
+    ILLEGAL_ARGUMENT(2,"illegal arguments !"),
     /**
      * register
      */
