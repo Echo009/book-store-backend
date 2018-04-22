@@ -2,7 +2,7 @@ package cn.lan.bookstore.aspect;
 
 import cn.lan.bookstore.constant.CookieConstant;
 import cn.lan.bookstore.constant.RedisConstant;
-import cn.lan.bookstore.enums.ResponseCodeEnum;
+import cn.lan.bookstore.enums.common.ResponseCodeEnum;
 import cn.lan.bookstore.exception.BaseServerException;
 import cn.lan.bookstore.util.CookiesUtil;
 import lombok.extern.slf4j.Slf4j;

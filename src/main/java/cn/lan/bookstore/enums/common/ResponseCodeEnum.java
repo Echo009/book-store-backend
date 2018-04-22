@@ -1,4 +1,4 @@
-package cn.lan.bookstore.enums;
+package cn.lan.bookstore.enums.common;
 
 import lombok.Getter;
 

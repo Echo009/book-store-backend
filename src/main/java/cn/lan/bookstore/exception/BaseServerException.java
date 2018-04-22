@@ -1,6 +1,6 @@
 package cn.lan.bookstore.exception;
 
-import cn.lan.bookstore.enums.ResponseCodeEnum;
+import cn.lan.bookstore.enums.common.ResponseCodeEnum;
 import lombok.Data;
 
 /**

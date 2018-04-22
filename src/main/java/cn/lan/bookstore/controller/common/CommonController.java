@@ -6,7 +6,7 @@ import cn.lan.bookstore.convertor.UserInfoVOConvertor;
 import cn.lan.bookstore.dto.ResultDTO;
 import cn.lan.bookstore.dto.UserBaseInfoDTO;
 import cn.lan.bookstore.entity.common.UserBaseInfoEntity;
-import cn.lan.bookstore.enums.ResponseCodeEnum;
+import cn.lan.bookstore.enums.common.ResponseCodeEnum;
 import cn.lan.bookstore.response.BaseResponse;
 import cn.lan.bookstore.service.common.IUserBaseInfoService;
 import cn.lan.bookstore.util.CookiesUtil;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 

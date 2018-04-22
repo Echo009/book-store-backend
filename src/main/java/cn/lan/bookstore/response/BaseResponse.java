@@ -1,11 +1,10 @@
 package cn.lan.bookstore.response;
 
-import cn.lan.bookstore.enums.ResponseCodeEnum;
+import cn.lan.bookstore.enums.common.ResponseCodeEnum;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Author : Ech0

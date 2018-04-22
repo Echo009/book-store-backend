@@ -5,7 +5,7 @@ import cn.lan.bookstore.constant.RedisConstant;
 import cn.lan.bookstore.dto.UserBaseInfoDTO;
 import cn.lan.bookstore.entity.common.UserBaseInfoEntity;
 import cn.lan.bookstore.entity.seller.StoreEntity;
-import cn.lan.bookstore.enums.ResponseCodeEnum;
+import cn.lan.bookstore.enums.common.ResponseCodeEnum;
 import cn.lan.bookstore.enums.common.RoleCodeEnum;
 import cn.lan.bookstore.exception.BaseServerException;
 import cn.lan.bookstore.form.StoreForm;

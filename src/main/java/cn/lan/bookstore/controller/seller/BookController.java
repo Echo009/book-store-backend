@@ -4,7 +4,7 @@ import cn.lan.bookstore.controller.BaseController;
 import cn.lan.bookstore.dto.ResultDTO;
 import cn.lan.bookstore.dto.UserBaseInfoDTO;
 import cn.lan.bookstore.entity.seller.BookEntity;
-import cn.lan.bookstore.enums.ResponseCodeEnum;
+import cn.lan.bookstore.enums.common.ResponseCodeEnum;
 import cn.lan.bookstore.exception.BaseServerException;
 import cn.lan.bookstore.form.BookSimpleForm;
 import cn.lan.bookstore.response.BaseResponse;
