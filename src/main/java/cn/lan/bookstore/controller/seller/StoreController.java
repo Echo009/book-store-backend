@@ -20,6 +20,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,6 +39,7 @@ import java.util.Date;
 @RestController
 @Slf4j
 @RequestMapping("/store")
+@CrossOrigin("*")
 public class StoreController {
 
     @Autowired
@@ -78,7 +80,7 @@ public class StoreController {
             // 更新角色信息
             // redis
             userBaseInfoDTO.setRoleCode(RoleCodeEnum.SELLER.getCode());
-            redisTemplate.opsForValue().set(String.format(RedisConstant.TOKEN_PREFIX,token),JsonUtil.toJson(userBaseInfoDTO,true));
+            redisTemplate.opsForValue().set(String.format(RedisConstant.TOKEN_PREFIX,token),JsonUtil.toJson(userBaseInfoDTO,false));
             // db
             log.info("create store , curent user  {}",JsonUtil.toJson(userBaseInfoDTO,true ));
             UserBaseInfoEntity userBaseInfoEntity = userBaseInfoService.findUserInfoById(userBaseInfoDTO.getUserId());

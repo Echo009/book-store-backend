@@ -60,7 +60,7 @@ public class QiniuUtil {
                 //解析上传成功的结果
 
                 DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
-                String return_path = path + "/" + putRet.key;
+                String return_path = "http://" + path + "/" + putRet.key;
                 log.info("保存地址={}", return_path);
                 return return_path;
             } catch (QiniuException ex) {

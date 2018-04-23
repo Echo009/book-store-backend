@@ -112,7 +112,7 @@ public class CommonController {
             userBaseInfoDTO.setUserName(resultDTO.getData().getUserName());
             userBaseInfoDTO.setHeadImg(resultDTO.getData().getHeadImg());
             // 将token 以及用户基本信息 写入redis
-            String currentUserInfo = JsonUtil.toJson(userBaseInfoDTO, true);
+            String currentUserInfo = JsonUtil.toJson(userBaseInfoDTO, false);
             redisTemplate.opsForValue().set(
                     String.format(RedisConstant.TOKEN_PREFIX, token),
                     currentUserInfo,
@@ -157,5 +157,29 @@ public class CommonController {
         } else {
             return new BaseResponse(ResponseCodeEnum.ERROR);
         }
+    }
+
+    @RequestMapping("/userInfo")
+    public BaseResponse currentUserInfo(HttpServletRequest request,HttpServletResponse response){
+        Cookie cookie = CookiesUtil.get(request, CookieConstant.TOKEN);
+        for (Cookie item : request.getCookies()) {
+            log.info("【获取当前用户信息】 cookie of request : {} - {}" , item.getName(),item.getValue() );
+        }
+        if (cookie!=null) {
+            String userString = redisTemplate.opsForValue()
+                    .get(String.format(RedisConstant.TOKEN_PREFIX, cookie.getValue()));
+            if (userString == null) {
+                log.warn("【获取当前用户信息】无效token : {}",cookie.getValue());
+                // 清除 cookie
+                CookiesUtil.set(response, CookieConstant.TOKEN, null, 0);
+                return new BaseResponse(ResponseCodeEnum.ERROR);
+            }
+            log.info("【获取当前用户信息】current user : {}",userString);
+            UserBaseInfoDTO userBaseInfoDTO = JsonUtil.toBean(userString,UserBaseInfoDTO.class);
+            return new BaseResponse(true,userBaseInfoDTO);
+        } else {
+            return new BaseResponse(ResponseCodeEnum.ERROR);
+        }
+
     }
 }

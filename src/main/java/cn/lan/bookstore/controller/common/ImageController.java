@@ -6,12 +6,10 @@ import cn.lan.bookstore.util.QiniuUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.UUID;
@@ -27,6 +25,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/image")
 @Slf4j
+@CrossOrigin(origins = "*")
 public class ImageController {
 
     @Autowired
@@ -34,6 +33,9 @@ public class ImageController {
 
     @PostMapping("/upload")
     public BaseResponse uploadImg(@RequestParam("image-file")MultipartFile multipartFile){
+
+
+
 
         String path = "";
         try (FileInputStream fileInputStream = (FileInputStream) multipartFile.getInputStream()) {

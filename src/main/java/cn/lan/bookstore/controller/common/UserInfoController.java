@@ -2,6 +2,7 @@ package cn.lan.bookstore.controller.common;
 
 import cn.lan.bookstore.response.BaseResponse;
 import cn.lan.bookstore.service.common.IUserBaseInfoService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/userInfo")
 @CrossOrigin(origins = "*")
+@Slf4j
 public class UserInfoController {
 
     @Autowired

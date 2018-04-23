@@ -25,6 +25,12 @@ public class StoreEntity {
 
     private String storeName;
 
+    private String realName;
+
+    private String idNumber;
+
+    private String email;
+
     private String storeCoverImg;
 
     private Date registDate;
@@ -34,6 +40,10 @@ public class StoreEntity {
     private Long registerPhone;
 
     private String bankNum ;
+    /**
+     * 只存储到市区的信息，如湖南省-湘潭市
+     */
+    private String addr;
 
     private Integer status = StoreStatusEnum.VALID.getCode();
 

@@ -24,4 +24,13 @@ public class StoreForm {
     @NotEmpty(message = "银行卡号不能为空 ！")
     private String bankNum;
 
+    @NotEmpty(message = "申请人姓名不能为空 ！")
+    private String realName;
+    @NotEmpty(message = "身份证号码不能为空 ！")
+    private String idNumber;
+
+    private String email;
+    @NotEmpty(message = "地址不能为空 ！")
+    private String addr;
+
 }
