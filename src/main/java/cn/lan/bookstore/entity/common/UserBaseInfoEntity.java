@@ -1,5 +1,8 @@
 package cn.lan.bookstore.entity.common;
 
+import cn.lan.bookstore.constant.Constant;
+import cn.lan.bookstore.enums.common.RoleCodeEnum;
+import cn.lan.bookstore.enums.common.UserSexEnum;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -25,7 +28,7 @@ public class UserBaseInfoEntity {
 
     private String userName;
 
-    private String headImg= "http://p7f7rr200.bkt.clouddn.com/b6463e9a-e8e2-44a6-909b-332887e5d995";
+    private String headImg= Constant.DEFAULT_HEAD_IMG_URL;
 
     private String email;
 
@@ -33,6 +36,8 @@ public class UserBaseInfoEntity {
 
     private String password;
 
-    private Integer roleCode ;
+    private Integer sex = UserSexEnum.UNKNOW.getCode();
+
+    private Integer roleCode = RoleCodeEnum.BUYER.getCode();
 
 }

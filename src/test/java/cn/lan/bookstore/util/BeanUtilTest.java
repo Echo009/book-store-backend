@@ -1,7 +1,7 @@
 package cn.lan.bookstore.util;
 
 import cn.lan.bookstore.entity.seller.StoreEntity;
-import cn.lan.bookstore.form.StoreForm;
+import cn.lan.bookstore.form.seller.StoreForm;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;

@@ -6,6 +6,8 @@ import cn.lan.bookstore.dto.UserBaseInfoDTO;
 import cn.lan.bookstore.entity.common.UserBaseInfoEntity;
 import cn.lan.bookstore.service.common.IUserBaseInfoService;
 import cn.lan.bookstore.util.Encrypter;
+import cn.lan.bookstore.util.JsonUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
  * @author Ech0
  */
 @Service
+@Slf4j
 public class UserBaseInfoServiceImpl implements IUserBaseInfoService {
 
     @Autowired
@@ -60,6 +63,7 @@ public class UserBaseInfoServiceImpl implements IUserBaseInfoService {
             if (currentUser == null) {
                 return ResultDTO.BAD_RESULT;
             } else {
+                log.info("current user is : {}", JsonUtil.toJson(currentUser,true));
                 return new ResultDTO<>(true, currentUser);
             }
         }

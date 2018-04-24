@@ -1,4 +1,4 @@
-package cn.lan.bookstore.form;
+package cn.lan.bookstore.form.seller;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -19,18 +19,16 @@ import java.util.Date;
 public class BookSimpleForm {
 
     private Long id;
-
-    private Long storeId;
     @NotEmpty(message = "书籍名称不能为空 ！")
-    private String name;
+    private String bookName;
     @NotNull(message = "推荐语不能为空 ！")
     private String recommendation;
     @NotEmpty(message = "作者名称不能为空 ！")
     private String authorName;
     @NotEmpty(message = "出版社信息不能为空 ！")
     private String publisher ;
-    @Past(message = "出版日期有误 ！")
-    private Date publishDate;
+    @NotEmpty(message = "出版日期不能为空 ！")
+    private String publishDate;
     @DecimalMin(value = "0.00",message = "定价不能低于0 ！")
     private BigDecimal pricing;
 

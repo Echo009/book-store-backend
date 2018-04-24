@@ -2,13 +2,14 @@ package cn.lan.bookstore.controller.seller;
 
 import cn.lan.bookstore.constant.CookieConstant;
 import cn.lan.bookstore.constant.RedisConstant;
+import cn.lan.bookstore.controller.BaseController;
 import cn.lan.bookstore.dto.UserBaseInfoDTO;
 import cn.lan.bookstore.entity.common.UserBaseInfoEntity;
 import cn.lan.bookstore.entity.seller.StoreEntity;
 import cn.lan.bookstore.enums.common.ResponseCodeEnum;
 import cn.lan.bookstore.enums.common.RoleCodeEnum;
 import cn.lan.bookstore.exception.BaseServerException;
-import cn.lan.bookstore.form.StoreForm;
+import cn.lan.bookstore.form.seller.StoreForm;
 import cn.lan.bookstore.response.BaseResponse;
 import cn.lan.bookstore.service.common.IUserBaseInfoService;
 import cn.lan.bookstore.service.seller.IStoreService;
@@ -40,7 +41,7 @@ import java.util.Date;
 @Slf4j
 @RequestMapping("/store")
 @CrossOrigin("*")
-public class StoreController {
+public class StoreController extends BaseController {
 
     @Autowired
     private IStoreService storeService;
@@ -104,11 +105,11 @@ public class StoreController {
                     bindingResult.getFieldError().getDefaultMessage());
         }
 
-        String token = CookiesUtil.get(request, CookieConstant.TOKEN).getValue();
-        // 校验当前申请人状态
-        String userInfoJsonString  = redisTemplate.opsForValue().get(String.format(RedisConstant.TOKEN_PREFIX, token));
 
-        UserBaseInfoDTO userBaseInfoDTO = JsonUtil.toBean(userInfoJsonString, UserBaseInfoDTO.class);
+        // 校验当前申请人状态
+
+
+        UserBaseInfoDTO userBaseInfoDTO = getCurrentUserInfo();
         // 为商家且已有店铺则可以申请
 
         StoreEntity storeEntity =  storeService.findStoreByUserId(userBaseInfoDTO.getUserId());
@@ -124,7 +125,12 @@ public class StoreController {
         }
         return new BaseResponse(ResponseCodeEnum.VIOLATION_OPERATION);
     }
-
+    @RequestMapping("info")
+    public BaseResponse info(){
+        UserBaseInfoDTO userBaseInfoDTO = getCurrentUserInfo();
+        StoreEntity storeEntity = storeService.findStoreByUserId(userBaseInfoDTO.getUserId());
+        return new BaseResponse(true, storeEntity);
+    }
     /**
      * 检查店铺名是否可用
      * @param storeName

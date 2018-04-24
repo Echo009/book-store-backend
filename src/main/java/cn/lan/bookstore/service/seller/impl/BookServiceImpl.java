@@ -47,7 +47,7 @@ public class BookServiceImpl implements IBookService {
 
         //  先检查同一商铺中是否存在同名书籍
 
-        if (storeDao.findByStoreName(bookEntity.getName()) != null) {
+        if (storeDao.findByStoreName(bookEntity.getBookName()) != null) {
             log.warn("【新增书籍】 当前店铺已存在该书籍 book ：{}", JsonUtil.toJson(bookEntity, true));
             return new ResultDTO(false, "当前书籍已存在，请不要重复添加！");
         }

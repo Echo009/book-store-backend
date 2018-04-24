@@ -7,20 +7,26 @@ import cn.lan.bookstore.dto.ResultDTO;
 import cn.lan.bookstore.dto.UserBaseInfoDTO;
 import cn.lan.bookstore.entity.common.UserBaseInfoEntity;
 import cn.lan.bookstore.enums.common.ResponseCodeEnum;
+import cn.lan.bookstore.exception.BaseServerException;
+import cn.lan.bookstore.form.common.UserForm;
 import cn.lan.bookstore.response.BaseResponse;
 import cn.lan.bookstore.service.common.IUserBaseInfoService;
 import cn.lan.bookstore.util.CookiesUtil;
+import cn.lan.bookstore.util.Encrypter;
 import cn.lan.bookstore.util.JsonUtil;
 import cn.lan.bookstore.vo.UserInfoVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -47,28 +53,35 @@ public class CommonController {
     /**
      * 注册
      *
-     * @param userInfoVO userName;
+     * @param userForm userName;
      *                   email;
      *                   phone;
      *                   password;
      * @return
      */
     @PostMapping("/register")
-    public BaseResponse register(UserInfoVO userInfoVO) {
-        if (!userInfoVO.check()) {
-            return new BaseResponse(ResponseCodeEnum.INCOMPLETE_INFO);
+    public BaseResponse register(@Valid UserForm userForm, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            log.error("【用户注册】参数不正确，userForm={}", JsonUtil.toJson(userForm, true));
+            throw new BaseServerException(
+                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+                    bindingResult.getFieldError().getDefaultMessage());
         }
         // register
         synchronized (this) {
             // 校验用户名
-            if (userBaseInfoService.checkUserName(userInfoVO.getUserName())) {
+            if (userBaseInfoService.checkUserName(userForm.getUserName())) {
                 return new BaseResponse<>(ResponseCodeEnum.INVALID_USERNAME);
             }
             // 校验手机
-            if (userBaseInfoService.checkPhone(userInfoVO.getPhone())) {
+            if (userBaseInfoService.checkPhone(userForm.getPhone())) {
                 return new BaseResponse(ResponseCodeEnum.INVALID_PHONE);
             }
-            userBaseInfoService.register(UserInfoVOConvertor.userInfoVO2UserBaseInfoEntity(userInfoVO));
+            UserBaseInfoEntity userBaseInfoEntity = new UserBaseInfoEntity();
+            BeanUtils.copyProperties(userForm,userBaseInfoEntity);
+            userBaseInfoEntity.setPassword(Encrypter.md5(userForm.getPassword()));
+            userBaseInfoService.register(userBaseInfoEntity);
         }
         return BaseResponse.SUCCESS;
     }
@@ -106,11 +119,9 @@ public class CommonController {
             String token = UUID.randomUUID().toString();
             Integer expire = RedisConstant.EXPIRE;
 
+            BeanUtils.copyProperties(resultDTO.getData(),userBaseInfoDTO);
             userBaseInfoDTO.setPassword(null);
             userBaseInfoDTO.setUserId(resultDTO.getData().getId());
-            userBaseInfoDTO.setRoleCode(resultDTO.getData().getRoleCode());
-            userBaseInfoDTO.setUserName(resultDTO.getData().getUserName());
-            userBaseInfoDTO.setHeadImg(resultDTO.getData().getHeadImg());
             // 将token 以及用户基本信息 写入redis
             String currentUserInfo = JsonUtil.toJson(userBaseInfoDTO, false);
             redisTemplate.opsForValue().set(

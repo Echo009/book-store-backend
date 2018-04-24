@@ -1,4 +1,4 @@
-package cn.lan.bookstore.form;
+package cn.lan.bookstore.form.seller;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;

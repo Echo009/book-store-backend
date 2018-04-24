@@ -20,7 +20,6 @@ public class StoreEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
     private Long userId ;
 
     private String storeName;

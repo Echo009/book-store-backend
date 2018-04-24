@@ -15,6 +15,6 @@ public interface BookDao extends JpaRepository<BookEntity,Long>,JpaSpecification
 
     List<BookEntity> findAllByStoreId(Long storeId);
 
-    BookEntity findAllByName(String name);
+    BookEntity findAllByBookName(String name);
 
 }

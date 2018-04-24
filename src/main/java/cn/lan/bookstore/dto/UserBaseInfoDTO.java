@@ -17,7 +17,9 @@ public class UserBaseInfoDTO {
 
     private String userName;
 
-    private String headImg = "p7f7rr200.bkt.clouddn.com/b6463e9a-e8e2-44a6-909b-332887e5d995";
+    private String headImg ;
+
+    private String email;
 
     private Long phone;
 

@@ -17,7 +17,7 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "book",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"name","storeId"})})
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"bookName","storeId"})})
 public class BookEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,15 +25,19 @@ public class BookEntity {
 
     private Long storeId;
 
-    private String name;
-
+    private String bookName;
+    /**
+     * 推荐语
+     */
     private String recommendation;
 
     private String authorName;
 
     private String publisher;
-
-    private Date publishDate;
+    /**
+     * yyyy-MM-dd
+     */
+    private String publishDate;
 
     private BigDecimal pricing;
 
