@@ -5,7 +5,9 @@ import cn.lan.bookstore.dao.seller.StoreDao;
 import cn.lan.bookstore.dto.ResultDTO;
 import cn.lan.bookstore.entity.seller.BookEntity;
 import cn.lan.bookstore.entity.seller.StoreEntity;
+import cn.lan.bookstore.enums.common.ResponseCodeEnum;
 import cn.lan.bookstore.enums.seller.ProductStatusEnum;
+import cn.lan.bookstore.exception.BaseServerException;
 import cn.lan.bookstore.service.seller.IBookService;
 import cn.lan.bookstore.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -59,7 +61,7 @@ public class BookServiceImpl implements IBookService {
             return new ResultDTO<>(true, bookEntity);
         } else {
             log.warn("【新增书籍】 permission deny ！");
-            return new ResultDTO<>(false, null);
+            throw new BaseServerException(ResponseCodeEnum.NO_PRIVILEGE);
         }
     }
 
@@ -83,7 +85,7 @@ public class BookServiceImpl implements IBookService {
             return new ResultDTO<>(true, bookEntity);
         } else {
             log.warn("【修改书籍信息】 permission deny ！");
-            return new ResultDTO<>(false, null);
+            throw new BaseServerException(ResponseCodeEnum.NO_PRIVILEGE);
         }
     }
 
@@ -139,7 +141,7 @@ public class BookServiceImpl implements IBookService {
         if (storeEntity != null && storeEntity.getId().equals(bookEntity.getStoreId())) {
             bookEntity.setStatus(ProductStatusEnum.SOLD_OUT.getCode());
         }
-        return new ResultDTO(false, "没有权限 ！");
+        throw new BaseServerException(ResponseCodeEnum.NO_PRIVILEGE);
     }
 
     /**

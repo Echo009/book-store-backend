@@ -2,10 +2,7 @@ package cn.lan.bookstore.entity.seller;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -15,8 +12,9 @@ import java.util.Date;
  * @author Ech0
  */
 
-@Entity(name = "book_detail")
+@Entity
 @Data
+@Table(name ="book_detail",uniqueConstraints = {@UniqueConstraint(columnNames = {"bookId"})})
 public class BookDetailEntity {
 
     @Id
@@ -27,9 +25,9 @@ public class BookDetailEntity {
 
     private Integer edition;
 
-    private Integer pages;
+    private Integer pages = 0;
 
-    private  Integer words;
+    private  Integer words = 0;
 
     private Date printDate;
 

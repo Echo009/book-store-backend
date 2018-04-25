@@ -17,7 +17,9 @@ import java.util.Date;
  */
 @Data
 public class BookSimpleForm {
-
+    /**
+     * 更新商品信息的时候需要
+     */
     private Long id;
     @NotEmpty(message = "书籍名称不能为空 ！")
     private String bookName;

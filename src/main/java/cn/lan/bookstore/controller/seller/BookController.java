@@ -3,11 +3,14 @@ package cn.lan.bookstore.controller.seller;
 import cn.lan.bookstore.controller.BaseController;
 import cn.lan.bookstore.dto.ResultDTO;
 import cn.lan.bookstore.dto.UserBaseInfoDTO;
+import cn.lan.bookstore.entity.seller.BookDetailEntity;
 import cn.lan.bookstore.entity.seller.BookEntity;
 import cn.lan.bookstore.enums.common.ResponseCodeEnum;
 import cn.lan.bookstore.exception.BaseServerException;
+import cn.lan.bookstore.form.seller.BookDeatilForm;
 import cn.lan.bookstore.form.seller.BookSimpleForm;
 import cn.lan.bookstore.response.BaseResponse;
+import cn.lan.bookstore.service.seller.IBookDetailService;
 import cn.lan.bookstore.service.seller.IBookService;
 import cn.lan.bookstore.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +36,8 @@ import java.util.List;
 public class BookController extends BaseController {
     @Autowired
     private IBookService bookService;
+    @Autowired
+    private IBookDetailService bookDetailService;
 
 
     @PostMapping("/add")
@@ -103,12 +108,50 @@ public class BookController extends BaseController {
                                    @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         List<BookEntity> result = bookService.findBooksByBookName(bookName, pageSize, pageNum);
         return new BaseResponse(true, result);
-
     }
 
     @RequestMapping("/all")
     public BaseResponse findAllBooks() {
-       List results = bookService.findAllBooksByUserId(getCurrentUserInfo().getUserId());
-       return new BaseResponse(true,results);
+        List results = bookService.findAllBooksByUserId(getCurrentUserInfo().getUserId());
+        return new BaseResponse(true, results);
+    }
+
+
+    @PostMapping("/addDetail")
+    public BaseResponse addDetail(@Valid BookDeatilForm bookDeatilForm,
+                                  BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()) {
+            log.error("【添加商品详情】参数不正确，bookDeatilForm={}", JsonUtil.toJson(bookDeatilForm, true));
+            throw new BaseServerException(
+                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+                    bindingResult.getFieldError().getDefaultMessage());
+        }
+        UserBaseInfoDTO curentUser = getCurrentUserInfo();
+        BookDetailEntity bookDetailEntity = new BookDetailEntity();
+        BeanUtils.copyProperties(bookDeatilForm,bookDetailEntity);
+        ResultDTO<BookDetailEntity> resultDTO = bookDetailService.addBookDetail(curentUser.getUserId(), bookDetailEntity);
+        return new BaseResponse(true, resultDTO.getData());
+    }
+
+    @PostMapping("/updateDetail")
+    public BaseResponse updateDetail(@Valid BookDeatilForm bookDeatilForm,
+                                  BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()) {
+            log.error("【修改商品详情】参数不正确，bookDeatilForm={}", JsonUtil.toJson(bookDeatilForm, true));
+            throw new BaseServerException(
+                    ResponseCodeEnum.ILLEGAL_ARGUMENT.getCode(),
+                    bindingResult.getFieldError().getDefaultMessage());
+        }
+        if (bookDeatilForm.getId() == null) {
+            log.error("【修改商品详情】参数不正确，bookDeatilForm={}", JsonUtil.toJson(bookDeatilForm, true));
+            throw new BaseServerException(ResponseCodeEnum.ILLEGAL_ARGUMENT);
+        }
+        UserBaseInfoDTO curentUser = getCurrentUserInfo();
+        BookDetailEntity bookDetailEntity = new BookDetailEntity();
+        BeanUtils.copyProperties(bookDeatilForm,bookDetailEntity);
+        ResultDTO<BookDetailEntity> resultDTO = bookDetailService.updateBookDetail(curentUser.getUserId(), bookDetailEntity);
+        return new BaseResponse(true, resultDTO.getData());
     }
 }
