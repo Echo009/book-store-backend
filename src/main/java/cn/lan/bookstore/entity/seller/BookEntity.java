@@ -45,7 +45,7 @@ public class BookEntity {
 
     private BigDecimal currentPrice;
 
-    private Integer sales;
+    private Integer sales = 0;
 
     private Integer stock;
     /**

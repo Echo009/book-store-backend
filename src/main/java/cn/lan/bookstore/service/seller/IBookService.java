@@ -39,4 +39,6 @@ public interface IBookService {
     ResultDTO deleteBook(Long userId, Long bookId);
 
     List<BookEntity> findAllBooksByUserId(Long userId);
+
+   BookEntity findBookById(Long bookId);
 }

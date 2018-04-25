@@ -29,7 +29,7 @@ public class BookDetailEntity {
 
     private  Integer words = 0;
 
-    private Date printDate;
+    private String printDate;
 
     private String paperType;
 

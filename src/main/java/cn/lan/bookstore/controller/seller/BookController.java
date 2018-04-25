@@ -102,13 +102,6 @@ public class BookController extends BaseController {
         }
     }
 
-    @PostMapping("/search")
-    public BaseResponse searchBook(@RequestParam String bookName,
-                                   @RequestParam Integer pageNum,
-                                   @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
-        List<BookEntity> result = bookService.findBooksByBookName(bookName, pageSize, pageNum);
-        return new BaseResponse(true, result);
-    }
 
     @RequestMapping("/all")
     public BaseResponse findAllBooks() {

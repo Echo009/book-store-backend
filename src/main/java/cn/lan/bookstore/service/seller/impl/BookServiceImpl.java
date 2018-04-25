@@ -157,4 +157,9 @@ public class BookServiceImpl implements IBookService {
         }
        return bookDao.findAllByStoreId(storeEntity.getId());
     }
+
+    @Override
+    public BookEntity findBookById(Long bookId) {
+        return bookDao.findOne(bookId);
+    }
 }
