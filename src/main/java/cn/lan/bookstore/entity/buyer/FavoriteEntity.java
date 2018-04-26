@@ -21,7 +21,6 @@ public class FavoriteEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
     private Long userId;
 
     private Short type;

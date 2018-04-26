@@ -105,7 +105,7 @@ public class CartServiceImpl implements ICartService {
      * @return
      */
     @Override
-    @Transactional
+    @Transactional(rollbackOn = {Exception.class})
     public ResultDTO removeCart(Long userId, Long cartId) {
         CartEntity cartEntity = cartDao.findOne(cartId);
         if (cartEntity == null) {
@@ -125,7 +125,7 @@ public class CartServiceImpl implements ICartService {
      * @return
      */
     @Override
-    @Transactional
+    @Transactional(rollbackOn = {Exception.class})
     public ResultDTO removeAllCart(Long userId) {
         cartDao.deleteAllByUserId(userId);
         return new ResultDTO(true, null);
