@@ -37,9 +37,9 @@ public class BookDetailEntity {
 
     private String authorIntro;
     /**
-     * 前言
+     * 推薦
      */
-    private String foreword ;
+    private String foreword = "emmmm .... 暫時木有 ! ";
     /**
      * 详情图片地址，以;分隔
      */

@@ -12,7 +12,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class StoreServiceImpl implements IStoreService{
+public class StoreServiceImpl implements IStoreService {
 
     @Autowired
     private StoreDao storeDao;
@@ -31,6 +32,11 @@ public class StoreServiceImpl implements IStoreService{
     @Override
     public StoreEntity findStoreByUserId(Long userId) {
         return storeDao.findByUserId(userId);
+    }
+
+    @Override
+    public StoreEntity findStoreById(Long id) {
+        return storeDao.findOne(id);
     }
 
     @Override
@@ -52,13 +58,13 @@ public class StoreServiceImpl implements IStoreService{
      *
      * @param storeName
      * @param pageSize
-     * @param pageNum 从1开始
+     * @param pageNum   从1开始
      * @return
      */
     @Override
     public List<StoreEntity> findStoresByName(String storeName, Integer pageSize, Integer pageNum) {
         // 构造查询条件
-        Specification<StoreEntity> specification  =
+        Specification<StoreEntity> specification =
                 (root, query, cb) -> {
                     List<Predicate> predicates = new LinkedList<>();
                     // 商铺名称模糊查询条件

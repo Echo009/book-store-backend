@@ -2,10 +2,7 @@ package cn.lan.bookstore.entity.buyer;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -15,8 +12,9 @@ import java.util.Date;
  * @author Ech0
  */
 
-@Entity(name = "favorite")
+@Entity
 @Data
+@Table(name = "favorite",uniqueConstraints = {@UniqueConstraint(name = "u_1",columnNames = {"userId","contentId"})})
 public class FavoriteEntity {
 
     @Id
@@ -28,7 +26,11 @@ public class FavoriteEntity {
 
     private Short type;
 
+    private String coverImg;
+
     private Long contentId;
+
+    private String name ;
 
     private Date createTime;
 }

@@ -13,6 +13,8 @@ public interface IStoreService {
 
     StoreEntity findStoreByUserId(Long userId);
 
+    StoreEntity findStoreById(Long id);
+
     StoreEntity updateStoreInfo(StoreEntity storeEntity);
 
     StoreEntity createStore(StoreEntity storeEntity);
