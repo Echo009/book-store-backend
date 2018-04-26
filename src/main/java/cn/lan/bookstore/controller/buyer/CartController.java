@@ -6,10 +6,12 @@ import cn.lan.bookstore.dto.UserBaseInfoDTO;
 import cn.lan.bookstore.entity.buyer.CartEntity;
 import cn.lan.bookstore.response.BaseResponse;
 import cn.lan.bookstore.service.buyer.ICartService;
+import cn.lan.bookstore.vo.CartWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -50,11 +52,33 @@ public class CartController extends BaseController {
     }
 
 
-    @PostMapping("/all")
+    @RequestMapping("/all")
     public BaseResponse all() {
 
         UserBaseInfoDTO userBaseInfoDTO = getCurrentUserInfo();
-        List result = cartService.findCartsByUserId(userBaseInfoDTO.getUserId());
-        return new BaseResponse(true,result);
+        List<CartEntity> result = cartService.findCartsByUserId(userBaseInfoDTO.getUserId());
+        // 按店铺分类处理
+        final List<CartWrapper> carts = new LinkedList<>();
+        Long perStoreId =null ;
+        CartWrapper wrapper = null;
+        for (CartEntity cartEntity : result) {
+            if (perStoreId == null||!cartEntity.getStoreId().equals(perStoreId)) {
+                // new
+                if (wrapper != null) {
+                    carts.add(wrapper);
+                }
+                wrapper = new CartWrapper();
+                wrapper.setStoreId(cartEntity.getStoreId());
+                wrapper.setStoreName(cartEntity.getStoreName());
+                wrapper.setCartEntityList(new LinkedList<>());
+                perStoreId = cartEntity.getStoreId();
+            }
+            wrapper.getCartEntityList().add(cartEntity);
+        }
+        if (wrapper == null) {
+            return new BaseResponse(true,null);
+        }
+        carts.add(wrapper);
+        return new BaseResponse(true,carts);
     }
 }

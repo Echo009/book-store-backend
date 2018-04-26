@@ -2,9 +2,11 @@ package cn.lan.bookstore.service.buyer.impl;
 
 import cn.lan.bookstore.dao.buyer.CartDao;
 import cn.lan.bookstore.dao.seller.BookDao;
+import cn.lan.bookstore.dao.seller.StoreDao;
 import cn.lan.bookstore.dto.ResultDTO;
 import cn.lan.bookstore.entity.buyer.CartEntity;
 import cn.lan.bookstore.entity.seller.BookEntity;
+import cn.lan.bookstore.entity.seller.StoreEntity;
 import cn.lan.bookstore.enums.common.ResponseCodeEnum;
 import cn.lan.bookstore.exception.BaseServerException;
 import cn.lan.bookstore.service.buyer.ICartService;
@@ -12,6 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -28,6 +34,8 @@ public class CartServiceImpl implements ICartService {
     private CartDao cartDao;
     @Autowired
     private BookDao bookDao;
+    @Autowired
+    private StoreDao storeDao;
 
     /**
      * 查找所有购物车
@@ -37,7 +45,10 @@ public class CartServiceImpl implements ICartService {
      */
     @Override
     public List<CartEntity> findCartsByUserId(Long userId) {
-        return cartDao.findAllByUserId(userId);
+        List<CartEntity> results = cartDao.findAllByUserId(userId);
+        // 排序
+        Collections.sort(results, (o1, o2) -> (int) (o1.getStoreId()-o2.getStoreId()));
+        return results;
     }
 
     /**
@@ -55,6 +66,7 @@ public class CartServiceImpl implements ICartService {
         if (bookEntity == null) {
             throw new BaseServerException(ResponseCodeEnum.VIOLATION_OPERATION);
         }
+        StoreEntity storeEntity = storeDao.findOne(bookEntity.getStoreId());
         CartEntity cartEntity;
         amount = amount == null ? 1 : amount;
         cartEntity = cartDao.findByUserIdAndBookId(userId, bookId);
@@ -65,10 +77,23 @@ public class CartServiceImpl implements ICartService {
             cartEntity.setBookId(bookId);
             cartEntity.setBookName(bookEntity.getBookName());
             cartEntity.setCoverImg(bookEntity.getCoverImg());
-            cartEntity.setPrice(bookEntity.getCurrentPrice());
+            cartEntity.setCurrentPrice(bookEntity.getCurrentPrice());
+            cartEntity.setStoreId(storeEntity.getId());
+            cartEntity.setStoreName(storeEntity.getStoreName());
+            cartEntity.setPublishDate(bookEntity.getPublishDate());
+            cartEntity.setPricing(bookEntity.getPricing());
+            cartEntity.setAuthorName(bookEntity.getAuthorName());
+            cartEntity.setPublisher(bookEntity.getPublisher());
+            cartEntity.setCategory(bookEntity.getCategory());
+
         } else {
             cartEntity.setAmount(cartEntity.getAmount() + amount);
         }
+        if (cartEntity.getAmount() <= 0) {
+            throw new BaseServerException(ResponseCodeEnum.VIOLATION_OPERATION);
+        }
+        // count total price
+        cartEntity.setTotalPrice(cartEntity.getCurrentPrice().multiply(new BigDecimal(cartEntity.getAmount())));
         cartDao.saveAndFlush(cartEntity);
         return new ResultDTO<>(true, cartEntity);
     }
@@ -80,6 +105,7 @@ public class CartServiceImpl implements ICartService {
      * @return
      */
     @Override
+    @Transactional
     public ResultDTO removeCart(Long userId, Long cartId) {
         CartEntity cartEntity = cartDao.findOne(cartId);
         if (cartEntity == null) {
@@ -99,6 +125,7 @@ public class CartServiceImpl implements ICartService {
      * @return
      */
     @Override
+    @Transactional
     public ResultDTO removeAllCart(Long userId) {
         cartDao.deleteAllByUserId(userId);
         return new ResultDTO(true, null);

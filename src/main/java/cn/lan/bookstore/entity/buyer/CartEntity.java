@@ -25,12 +25,28 @@ public class CartEntity {
 
     private Long bookId;
 
+    private Long storeId;
+
     private String coverImg;
+
+    private String category;
+
+    private String authorName;
+
+    private BigDecimal pricing;
 
     private String bookName;
 
-    private BigDecimal price;
+    private String storeName;
+
+    private String publisher;
+
+    private String publishDate;
+
+    private BigDecimal currentPrice;
 
     private Integer amount;
+
+    private BigDecimal totalPrice;
 
 }
