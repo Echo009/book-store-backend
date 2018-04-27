@@ -37,10 +37,11 @@ public class BookInfoController extends BaseController {
 
 
     @RequestMapping("/search")
-    public BaseResponse searchBook(@RequestParam String bookName,
+    public BaseResponse searchBook(@RequestParam(required = false) String bookName,
+                                   @RequestParam(required = false) String category,
                                    @RequestParam Integer pageNum,
-                                   @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
-        List<BookEntity> result = bookService.findBooksByBookName(bookName, pageSize, pageNum);
+                                   @RequestParam(required = false, defaultValue = "8") Integer pageSize) {
+        List<BookEntity> result = bookService.findBooksByBookNameAndCategory(category, bookName, pageSize, pageNum);
         return new BaseResponse(true, result);
     }
 

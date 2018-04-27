@@ -32,9 +32,10 @@ public interface IBookService {
      * @param bookName
      * @param pageSize
      * @param pageNum
+     * @param category
      * @return
      */
-    List<BookEntity> findBooksByBookName(String bookName, Integer pageSize, Integer pageNum);
+    List<BookEntity> findBooksByBookNameAndCategory(String category,String bookName, Integer pageSize, Integer pageNum);
 
     ResultDTO deleteBook(Long userId, Long bookId);
 

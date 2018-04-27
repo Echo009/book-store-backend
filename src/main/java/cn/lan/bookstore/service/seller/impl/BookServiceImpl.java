@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
@@ -95,21 +96,30 @@ public class BookServiceImpl implements IBookService {
      * @param bookName
      * @param pageSize
      * @param pageNum
+     * @param category
      * @return
      */
     @Override
-    public List<BookEntity> findBooksByBookName(String bookName, Integer pageSize, Integer pageNum) {
+    public List<BookEntity> findBooksByBookNameAndCategory(final String category ,final String bookName, Integer pageSize, Integer pageNum) {
         // 构造查询条件
         log.info("【书籍搜索】 book name ：{}", bookName);
+        log.info("【书籍搜索】 category name ：{}", category);
         Specification<BookEntity> specification =
                 (root, query, cb) -> {
                     List<Predicate> predicates = new LinkedList<>();
-                    // 书籍名称模糊查询条件
-                    Path<String> $bookName = root.get("name");
-                    Predicate _bookName = cb.like($bookName, "%" + bookName + "%");
-                    predicates.add(_bookName);
-
-                    // 商品状态
+                    if (StringUtils.isEmpty(bookName)) {
+                        // 书籍名称模糊查询条件
+                        Path<String> $bookName = root.get("bookName");
+                        Predicate _bookName = cb.like($bookName, "%" + bookName + "%");
+                        predicates.add(_bookName);
+                    }
+                    if (StringUtils.isEmpty(category)){
+                        //分类
+                        Path<String> $category = root.get("category");
+                        Predicate _category = cb.equal($category, category);
+                        predicates.add(_category);
+                    }
+                    //商品状态
                     Path<Integer> $bookStatus = root.get("status");
                     Predicate _bookStatus = cb.equal($bookStatus, ProductStatusEnum.ON_SALE.getCode());
                     predicates.add(_bookStatus);
@@ -118,7 +128,7 @@ public class BookServiceImpl implements IBookService {
 
         // 按销量排序
         Sort sort = new Sort(Sort.Direction.ASC, "sales");
-        Pageable pageable = new PageRequest(pageNum - 1, pageNum, sort);
+        Pageable pageable = new PageRequest(pageNum - 1, pageSize, sort);
         List<BookEntity> results = bookDao.findAll(specification, pageable).getContent();
         log.info("【书籍搜索】 results  ：{}", results);
         return results;

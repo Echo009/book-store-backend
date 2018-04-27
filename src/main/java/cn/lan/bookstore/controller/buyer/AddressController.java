@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: Ech0
@@ -54,6 +55,11 @@ public class AddressController extends BaseController {
         return BaseResponse.SUCCESS;
     }
 
+    @RequestMapping("/all")
+    public BaseResponse all() {
+        List result = addressService.findAll(getCurrentUserInfo().getUserId());
+        return new BaseResponse(true, result);
+    }
     public BaseResponse update( @Valid AddressForm addressForm, BindingResult bindingResult ) {
         if (bindingResult.hasErrors()) {
             log.error("【修改地址】参数不正确，addressForm={}", JsonUtil.toJson(addressForm, true));
