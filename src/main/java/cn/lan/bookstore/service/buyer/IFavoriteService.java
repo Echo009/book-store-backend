@@ -15,5 +15,9 @@ public interface IFavoriteService {
 
     void remove(Long userId , Long id);
 
+    void remove(Long userId, Short type, Long contentId);
+
     List<FavoriteEntity> findAll(boolean isBook, Long userId);
+
+    boolean check(boolean isBook, Long contentId,Long userId);
 }

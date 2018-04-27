@@ -10,6 +10,7 @@ import cn.lan.bookstore.vo.CartWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,16 +30,19 @@ public class CartController extends BaseController {
     @PostMapping("/add")
     public BaseResponse add(@RequestParam Long bookId, @RequestParam(required = false) Integer amount) {
         UserBaseInfoDTO userBaseInfoDTO = getCurrentUserInfo();
-        ResultDTO<CartEntity> cartEntityResultDTO = cartService.addCart(userBaseInfoDTO.getUserId(), bookId, amount);
-        return new BaseResponse(true, cartEntityResultDTO.getData());
+        // 如果添加失败则说明是重复添加。
 
+        ResultDTO cartEntityResultDTO = cartService.addCart(userBaseInfoDTO.getUserId(), bookId, amount);
+
+
+        return new BaseResponse(true, cartEntityResultDTO.getData());
     }
 
     @PostMapping("/remove")
     public BaseResponse remove(@RequestParam Long cartId) {
 
         UserBaseInfoDTO userBaseInfoDTO = getCurrentUserInfo();
-        cartService.removeCart(userBaseInfoDTO.getUserId(),cartId);
+        cartService.removeCart(userBaseInfoDTO.getUserId(), cartId);
         return BaseResponse.SUCCESS;
     }
 
@@ -58,10 +62,10 @@ public class CartController extends BaseController {
         List<CartEntity> result = cartService.findCartsByUserId(userBaseInfoDTO.getUserId());
         // 按店铺分类处理
         final List<CartWrapper> carts = new LinkedList<>();
-        Long perStoreId =null ;
+        Long perStoreId = null;
         CartWrapper wrapper = null;
         for (CartEntity cartEntity : result) {
-            if (perStoreId == null||!cartEntity.getStoreId().equals(perStoreId)) {
+            if (perStoreId == null || !cartEntity.getStoreId().equals(perStoreId)) {
                 // new
                 if (wrapper != null) {
                     carts.add(wrapper);
@@ -75,9 +79,9 @@ public class CartController extends BaseController {
             wrapper.getCartEntityList().add(cartEntity);
         }
         if (wrapper == null) {
-            return new BaseResponse(true,null);
+            return new BaseResponse(true, null);
         }
         carts.add(wrapper);
-        return new BaseResponse(true,carts);
+        return new BaseResponse(true, carts);
     }
 }

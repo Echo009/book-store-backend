@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -57,6 +58,7 @@ public class FavoriteServiceImpl implements IFavoriteService {
             favoriteEntity.setCoverImg(storeEntity.getStoreCoverImg());
             favoriteEntity.setType((Short.valueOf(FavoriteTypeEnum.STORE.getCode() + "")));
         }
+        favoriteEntity.setCreateTime(new Date());
         return favoriteDao.saveAndFlush(favoriteEntity);
     }
 
@@ -73,6 +75,14 @@ public class FavoriteServiceImpl implements IFavoriteService {
         favoriteDao.delete(id);
     }
 
+    @Override
+    public void remove(Long userId, Short type, Long contentId) {
+        FavoriteEntity favoriteEntity = favoriteDao.findAllByUserIdAndTypeAndContentId(userId, type, contentId);
+        if (favoriteEntity == null) {
+            throw new BaseServerException(ResponseCodeEnum.VIOLATION_OPERATION);
+        }
+        favoriteDao.delete(favoriteEntity);
+    }
 
 
     @Override
@@ -82,5 +92,23 @@ public class FavoriteServiceImpl implements IFavoriteService {
         } else {
             return favoriteDao.findAllByUserIdAndType(userId, (Short.valueOf(FavoriteTypeEnum.STORE.getCode() + "")));
         }
+    }
+
+    @Override
+    public boolean check(boolean isBook, Long contentId, Long userId) {
+        short type;
+        if (isBook) {
+            type = Short.valueOf(FavoriteTypeEnum.BOOK.getCode() + "");
+        } else {
+            type = Short.valueOf(FavoriteTypeEnum.STORE.getCode() + "");
+
+        }
+        FavoriteEntity favoriteEntity = favoriteDao.findAllByUserIdAndTypeAndContentId(
+                userId,
+                type,
+                contentId
+
+        );
+        return favoriteEntity != null;
     }
 }

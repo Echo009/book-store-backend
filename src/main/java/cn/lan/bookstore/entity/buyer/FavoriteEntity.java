@@ -14,7 +14,7 @@ import java.util.Date;
 
 @Entity
 @Data
-@Table(name = "favorite",uniqueConstraints = {@UniqueConstraint(name = "u_1",columnNames = {"userId","contentId"})})
+@Table(name = "favorite",uniqueConstraints = {@UniqueConstraint(name = "u_1",columnNames = {"userId","contentId","type"})})
 public class FavoriteEntity {
 
     @Id

@@ -10,8 +10,10 @@ import java.util.List;
  * Email  : ech0.extreme@foxmail.com
  * Time   : 04/27/2018 02:05 AM
  */
-public interface FavoriteDao extends JpaRepository<FavoriteEntity,Long>{
+public interface FavoriteDao extends JpaRepository<FavoriteEntity, Long> {
 
-    List<FavoriteEntity> findAllByUserIdAndType(Long userId , Short type);
+    List<FavoriteEntity> findAllByUserIdAndType(Long userId, Short type);
+
+    FavoriteEntity findAllByUserIdAndTypeAndContentId(Long userId, Short type,Long contentId);
 
 }
