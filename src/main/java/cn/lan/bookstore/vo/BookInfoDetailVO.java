@@ -10,6 +10,7 @@ import java.math.BigDecimal;
  * Time   : 04/25/2018 04:53 PM
  */
 @Data
+
 public class BookInfoDetailVO {
 
     private Long bookDetailId;

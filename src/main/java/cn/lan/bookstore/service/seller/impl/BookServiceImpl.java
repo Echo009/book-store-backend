@@ -10,8 +10,10 @@ import cn.lan.bookstore.enums.seller.ProductStatusEnum;
 import cn.lan.bookstore.exception.BaseServerException;
 import cn.lan.bookstore.service.seller.IBookService;
 import cn.lan.bookstore.util.JsonUtil;
+import cn.lan.bookstore.vo.SearchResultVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -100,20 +102,20 @@ public class BookServiceImpl implements IBookService {
      * @return
      */
     @Override
-    public List<BookEntity> findBooksByBookNameAndCategory(final String category ,final String bookName, Integer pageSize, Integer pageNum) {
+    public SearchResultVo findBooksByBookNameAndCategory(final String category , final String bookName, Integer pageSize, Integer pageNum) {
         // 构造查询条件
         log.info("【书籍搜索】 book name ：{}", bookName);
         log.info("【书籍搜索】 category name ：{}", category);
         Specification<BookEntity> specification =
                 (root, query, cb) -> {
                     List<Predicate> predicates = new LinkedList<>();
-                    if (StringUtils.isEmpty(bookName)) {
+                    if (!StringUtils.isEmpty(bookName)) {
                         // 书籍名称模糊查询条件
                         Path<String> $bookName = root.get("bookName");
                         Predicate _bookName = cb.like($bookName, "%" + bookName + "%");
                         predicates.add(_bookName);
                     }
-                    if (StringUtils.isEmpty(category)){
+                    if (!StringUtils.isEmpty(category)){
                         //分类
                         Path<String> $category = root.get("category");
                         Predicate _category = cb.equal($category, category);
@@ -129,9 +131,18 @@ public class BookServiceImpl implements IBookService {
         // 按销量排序
         Sort sort = new Sort(Sort.Direction.ASC, "sales");
         Pageable pageable = new PageRequest(pageNum - 1, pageSize, sort);
-        List<BookEntity> results = bookDao.findAll(specification, pageable).getContent();
+
+        Page page =  bookDao.findAll(specification, pageable);
+
+        List<BookEntity> results = page.getContent();
         log.info("【书籍搜索】 results  ：{}", results);
-        return results;
+
+        SearchResultVo searchResultVo = new SearchResultVo();
+        searchResultVo.setTotalElements(page.getTotalElements());
+        searchResultVo.setTotalPages(page.getTotalPages());
+        searchResultVo.setContent(page.getContent());
+        searchResultVo.setCurrentPage(pageNum);
+        return searchResultVo;
     }
 
     /**

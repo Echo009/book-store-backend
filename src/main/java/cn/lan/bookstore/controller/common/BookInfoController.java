@@ -10,6 +10,7 @@ import cn.lan.bookstore.response.BaseResponse;
 import cn.lan.bookstore.service.seller.IBookDetailService;
 import cn.lan.bookstore.service.seller.IBookService;
 import cn.lan.bookstore.vo.BookInfoDetailVO;
+import cn.lan.bookstore.vo.SearchResultVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -41,7 +42,7 @@ public class BookInfoController extends BaseController {
                                    @RequestParam(required = false) String category,
                                    @RequestParam Integer pageNum,
                                    @RequestParam(required = false, defaultValue = "8") Integer pageSize) {
-        List<BookEntity> result = bookService.findBooksByBookNameAndCategory(category, bookName, pageSize, pageNum);
+        SearchResultVo result = bookService.findBooksByBookNameAndCategory(category, bookName, pageSize, pageNum);
         return new BaseResponse(true, result);
     }
 

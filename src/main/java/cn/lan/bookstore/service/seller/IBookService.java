@@ -2,6 +2,7 @@ package cn.lan.bookstore.service.seller;
 
 import cn.lan.bookstore.dto.ResultDTO;
 import cn.lan.bookstore.entity.seller.BookEntity;
+import cn.lan.bookstore.vo.SearchResultVo;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public interface IBookService {
      * @param category
      * @return
      */
-    List<BookEntity> findBooksByBookNameAndCategory(String category,String bookName, Integer pageSize, Integer pageNum);
+    SearchResultVo findBooksByBookNameAndCategory(String category, String bookName, Integer pageSize, Integer pageNum);
 
     ResultDTO deleteBook(Long userId, Long bookId);
 

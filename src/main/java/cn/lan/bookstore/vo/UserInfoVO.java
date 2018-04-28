@@ -1,5 +1,6 @@
 package cn.lan.bookstore.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 import org.springframework.util.StringUtils;
 
@@ -10,6 +11,7 @@ import org.springframework.util.StringUtils;
  * @author Ech0
  */
 @Data
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class UserInfoVO {
 
     private String userName;
