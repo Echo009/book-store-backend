@@ -60,6 +60,7 @@ public class AddressController extends BaseController {
         List result = addressService.findAll(getCurrentUserInfo().getUserId());
         return new BaseResponse(true, result);
     }
+    @RequestMapping("/update")
     public BaseResponse update( @Valid AddressForm addressForm, BindingResult bindingResult ) {
         if (bindingResult.hasErrors()) {
             log.error("【修改地址】参数不正确，addressForm={}", JsonUtil.toJson(addressForm, true));

@@ -14,29 +14,29 @@ public enum  ResponseCodeEnum {
     /**
      * common
      */
-    SUCCESS(0, "success !"),
-    ERROR(1, "error !"),
-    ILLEGAL_ARGUMENT(2,"illegal arguments !"),
+    SUCCESS(0, "成功 !"),
+    ERROR(1, "错误 !"),
+    ILLEGAL_ARGUMENT(2,"非法参数!"),
     /**
      * register
      */
-    INVALID_PHONE(101, "invalid phone number !"),
-    INVALID_USERNAME(102, "invalid username !"),
-    INVALID_STORE_NAME(103, "invalid store name !"),
+    INVALID_PHONE(101, "无效的电话号码 !"),
+    INVALID_USERNAME(102, "无效的用户名 !"),
+    INVALID_STORE_NAME(103, "无效的店铺名 !"),
     /**
      * login
      */
-    INCOMPLETE_INFO(111,"incomplete info !"),
-    INCORRECT_INFO(112,"incorrect info !"),
-    REPEAT_LOGIN(113,"repeat login !"),
+    INCOMPLETE_INFO(111,"信息不全 !"),
+    INCORRECT_INFO(112,"信息不对 !"),
+    REPEAT_LOGIN(113,"重复登陆 !"),
 
     /**
      *  Privilege
      */
-    NO_LOGIN(121,"not logged in !"),
-    NO_PRIVILEGE(122," permission denied !"),
-    INVALID_TOKEN(123,"invalid token !"),
-    VIOLATION_OPERATION(124,"violation operation !"),
+    NO_LOGIN(121,"没有登陆 !"),
+    NO_PRIVILEGE(122," 没有权限 !"),
+    INVALID_TOKEN(123,"无效的标志 !"),
+    VIOLATION_OPERATION(124,"违规操作 !"),
 
 
     ;
