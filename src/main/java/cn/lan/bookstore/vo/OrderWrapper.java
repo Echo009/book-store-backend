@@ -1,30 +1,23 @@
-package cn.lan.bookstore.entity.common;
+package cn.lan.bookstore.vo;
 
 import cn.lan.bookstore.enums.common.OrderStatusEnum;
 import cn.lan.bookstore.enums.common.PayStatusEnum;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
- * Author : Ech0
+ * @author: Ech0
  * Email  : ech0.extreme@foxmail.com
- * Time   : 04/16/2018 10:12 PM
- * @author Ech0
+ * Time   : 05/14/2018 03:36 PM
  */
-@Entity(name = "order_master")
 @Data
-public class OrderMasterEntity {
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+public class OrderWrapper {
 
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
     private String orderMasterId;
 
@@ -36,11 +29,14 @@ public class OrderMasterEntity {
 
     private BigDecimal orderAmount;
     /** 订单状态 ，0为新下单 */
-    private Integer orderStatus = OrderStatusEnum.NEW.getCode();
+    private Integer orderStatus;
     /** 支付状态，0为待支付 */
-    private Integer payStatus = PayStatusEnum.WAIT.getCode();
+    private Integer payStatus ;
     /** 创建时间*/
     private Date createTime;
     /** 修改时间*/
     private Date updateTime;
+
+    private List<OrderDetailVo> orderDetails;
+
 }
