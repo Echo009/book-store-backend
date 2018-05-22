@@ -129,7 +129,7 @@ public class BookServiceImpl implements IBookService {
                 };
 
         // 按销量排序
-        Sort sort = new Sort(Sort.Direction.DESC, "sales");
+        Sort sort = new Sort(Sort.Direction.DESC    , "sales");
         Pageable pageable = new PageRequest(pageNum - 1, pageSize, sort);
 
         Page page =  bookDao.findAll(specification, pageable);

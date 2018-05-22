@@ -38,7 +38,7 @@ public class BookInfoController extends BaseController {
 
 
     @RequestMapping("/search")
-    public BaseResponse searchBook(@RequestParam(required = false) String bookName,
+    public BaseResponse searchBooks(@RequestParam(required = false) String bookName,
                                    @RequestParam(required = false) String category,
                                    @RequestParam Integer pageNum,
                                    @RequestParam(required = false, defaultValue = "8") Integer pageSize) {
