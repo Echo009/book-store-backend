@@ -105,7 +105,7 @@ public class OrderServiceImpl implements IOrderService {
                     Integer stock = bookEntity.getStock();
                     stock -= cartEntity.getAmount();
                     if (stock < 0) {
-                        throw new BaseServerException(ResponseCodeEnum.ERROR.getCode(), "库存不足！");
+                        throw new BaseServerException(ResponseCodeEnum.ERROR.getCode(), "商品 "+cartEntity.getBookName()+" 库存不足！仅剩 "+bookEntity.getStock()+" 件!");
                     }
                     bookEntity.setStock(stock);
                     bookDao.saveAndFlush(bookEntity);
@@ -133,6 +133,8 @@ public class OrderServiceImpl implements IOrderService {
             BeanUtils.copyProperties(orderDetailEntity, orderDetailVo);
             orderDetailVoList.add(orderDetailVo);
             totalPrice.add(orderDetailEntity.getPrice());
+            //清除购物车内容
+            cartDao.delete(cartEntity);
         }
         // 生成主订单记录
         OrderMasterEntity orderMasterEntity = new OrderMasterEntity();

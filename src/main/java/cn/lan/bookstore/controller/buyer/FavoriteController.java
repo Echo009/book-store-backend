@@ -43,7 +43,7 @@ public class FavoriteController extends BaseController {
 
     @RequestMapping("/remove")
     public BaseResponse remove(@RequestParam(required = false) Long id,
-                               @RequestParam(required = false) Boolean isBook,
+                               @RequestParam(required = false,defaultValue = "true") Boolean isBook,
                                @RequestParam(required = false) Long contentId) {
         if (id != null) {
             favoriteService.remove(getCurrentUserInfo().getUserId(), id);
@@ -68,7 +68,7 @@ public class FavoriteController extends BaseController {
     }
 
     @RequestMapping("/all")
-    public BaseResponse all(Boolean isBook) {
+    public BaseResponse all(@RequestParam(required = false,defaultValue = "true") Boolean isBook) {
 
         List result = favoriteService.findAll(isBook, getCurrentUserInfo().getUserId());
         return new BaseResponse(true, result);

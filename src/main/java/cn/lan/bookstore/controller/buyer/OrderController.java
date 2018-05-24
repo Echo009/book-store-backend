@@ -3,6 +3,7 @@ package cn.lan.bookstore.controller.buyer;
 import cn.lan.bookstore.controller.BaseController;
 import cn.lan.bookstore.response.BaseResponse;
 import cn.lan.bookstore.service.buyer.IOrderService;
+import cn.lan.bookstore.util.JsonUtil;
 import cn.lan.bookstore.vo.OrderWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * @author: Ech0
@@ -26,21 +27,24 @@ import java.util.List;
 public class OrderController extends BaseController {
     @Autowired
     private IOrderService orderService;
+
     @PostMapping("/generate")
-    BaseResponse generateOrder(List<Long> cartIdList,Long addressId) {
-       OrderWrapper orderWrapper = orderService.generateOrder(cartIdList, addressId,getCurrentUserInfo().getUserId());
+    BaseResponse generateOrder(String cartIdList, Long addressId) {
+
+        Long[] cartList = JsonUtil.toBean(cartIdList, Long[].class);
+        OrderWrapper orderWrapper = orderService.generateOrder(Arrays.asList(cartList), addressId, getCurrentUserInfo().getUserId());
         return new BaseResponse(true, orderWrapper);
     }
 
     @RequestMapping("/cancel")
-    BaseResponse cancelOrder(String orderMasterId){
-        orderService.cancelOrder(orderMasterId,getCurrentUserInfo().getUserId());
+    BaseResponse cancelOrder(String orderMasterId) {
+        orderService.cancelOrder(orderMasterId, getCurrentUserInfo().getUserId());
         return BaseResponse.SUCCESS;
     }
 
     @RequestMapping("/pay")
-    BaseResponse payOrder(String orderMasterId){
-        orderService.payOrder(orderMasterId,getCurrentUserInfo().getUserId());
+    BaseResponse payOrder(String orderMasterId) {
+        orderService.payOrder(orderMasterId, getCurrentUserInfo().getUserId());
         return BaseResponse.SUCCESS;
     }
 

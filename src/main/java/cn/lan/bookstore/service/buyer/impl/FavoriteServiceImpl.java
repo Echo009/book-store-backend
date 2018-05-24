@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -86,11 +87,24 @@ public class FavoriteServiceImpl implements IFavoriteService {
 
 
     @Override
-    public List<FavoriteEntity> findAll(boolean isBook, Long userId) {
+    public List findAll(boolean isBook, Long userId) {
         if (isBook) {
-            return favoriteDao.findAllByUserIdAndType(userId, (Short.valueOf(FavoriteTypeEnum.BOOK.getCode() + "")));
+            List<FavoriteEntity> favoriteEntities = favoriteDao.findAllByUserIdAndType(userId, (Short.valueOf(FavoriteTypeEnum.BOOK.getCode() + "")));
+            List<BookEntity> bookEntities = new ArrayList<>(favoriteEntities.size());
+            for (FavoriteEntity favoriteEntity : favoriteEntities) {
+                BookEntity bookEntity = bookDao.findOne(favoriteEntity.getContentId());
+                bookEntities.add(bookEntity);
+            }
+            return bookEntities;
+
         } else {
-            return favoriteDao.findAllByUserIdAndType(userId, (Short.valueOf(FavoriteTypeEnum.STORE.getCode() + "")));
+            List<FavoriteEntity> favoriteEntities = favoriteDao.findAllByUserIdAndType(userId, (Short.valueOf(FavoriteTypeEnum.STORE.getCode() + "")));
+            List<StoreEntity> storeEntities = new ArrayList<>(favoriteEntities.size());
+            for (FavoriteEntity favoriteEntity : favoriteEntities) {
+                StoreEntity storeEntity = storeDao.findOne(favoriteEntity.getContentId());
+                storeEntities.add(storeEntity);
+            }
+            return storeEntities;
         }
     }
 
