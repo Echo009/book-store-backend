@@ -14,6 +14,7 @@ import java.util.List;
 public interface IBookService {
     /**
      * 新增书籍
+     *
      * @param userId
      * @param bookEntity
      * @return
@@ -22,14 +23,16 @@ public interface IBookService {
 
     /**
      * 修改书籍信息
+     *
      * @param userId
      * @param bookEntity
      * @return
      */
-    ResultDTO<BookEntity> updateBookInfo(Long userId ,BookEntity bookEntity);
+    ResultDTO<BookEntity> updateBookInfo(Long userId, BookEntity bookEntity);
 
     /**
      * 根据书籍名称分页查询书籍信息
+     *
      * @param bookName
      * @param pageSize
      * @param pageNum
@@ -42,5 +45,19 @@ public interface IBookService {
 
     List<BookEntity> findAllBooksByUserId(Long userId);
 
-   BookEntity findBookById(Long bookId);
+    BookEntity findBookById(Long bookId);
+
+    /**
+     * 更新库存
+     * @param bookId
+     * @param delta
+     */
+    void updateStock(Long bookId, Integer delta);
+
+    /**
+     * 更新销量
+     * @param bookId
+     * @param delta
+     */
+    void updateSales(Long bookId, Integer delta);
 }

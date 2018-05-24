@@ -23,7 +23,6 @@ public class OrderDetailEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
     private String orderDeatilId;
 
     private String orderMasterId;
@@ -31,6 +30,8 @@ public class OrderDetailEntity {
     private Long buyerId;
 
     private Long sellerId;
+
+    private Long storeId;
 
     private Long bookId;
 

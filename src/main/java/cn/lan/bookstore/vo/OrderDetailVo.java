@@ -18,10 +18,6 @@ public class OrderDetailVo {
 
     private String orderMasterId;
 
-    private Long buyerId;
-
-    private Long sellerId;
-
     private Long bookId;
 
     private String bookName;

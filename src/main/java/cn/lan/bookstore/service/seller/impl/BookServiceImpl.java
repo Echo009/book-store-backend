@@ -1,5 +1,6 @@
 package cn.lan.bookstore.service.seller.impl;
 
+import cn.lan.bookstore.constant.RedisConstant;
 import cn.lan.bookstore.dao.seller.BookDao;
 import cn.lan.bookstore.dao.seller.StoreDao;
 import cn.lan.bookstore.dto.ResultDTO;
@@ -10,6 +11,7 @@ import cn.lan.bookstore.enums.seller.ProductStatusEnum;
 import cn.lan.bookstore.exception.BaseServerException;
 import cn.lan.bookstore.service.seller.IBookService;
 import cn.lan.bookstore.util.JsonUtil;
+import cn.lan.bookstore.util.RedisLock;
 import cn.lan.bookstore.vo.SearchResultVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,8 @@ public class BookServiceImpl implements IBookService {
     private BookDao bookDao;
     @Autowired
     private StoreDao storeDao;
+    @Autowired
+    private RedisLock redisLock;
 
     /**
      * 新增书籍
@@ -182,5 +186,55 @@ public class BookServiceImpl implements IBookService {
     @Override
     public BookEntity findBookById(Long bookId) {
         return bookDao.findOne(bookId);
+    }
+
+    /**
+     * 更新库存
+     *
+     * @param bookId
+     * @param delta
+     */
+    @Override
+    public void updateStock(Long bookId, Integer delta) {
+        BookEntity bookEntity = bookDao.findOne(bookId);
+        if (bookEntity == null) {
+            throw new BaseServerException(ResponseCodeEnum.ERROR.getCode(), "商品不存在！");
+        }
+        String lockKey = "Book_" + bookId;
+        if (redisLock.lock(lockKey, RedisConstant.MAX_LOCK_DURATION + "")) {
+            try {
+               bookEntity.setStock(bookEntity.getStock()+delta);
+                bookDao.save(bookEntity);
+            } finally {
+                redisLock.unlock(lockKey, RedisConstant.MAX_LOCK_DURATION + "");
+            }
+        } else {
+            throw new BaseServerException(ResponseCodeEnum.ERROR.getCode(), "系统繁忙，请重试！");
+        }
+    }
+
+    /**
+     * 更新销量
+     *
+     * @param bookId
+     * @param delta
+     */
+    @Override
+    public void updateSales(Long bookId, Integer delta) {
+        BookEntity bookEntity = bookDao.findOne(bookId);
+        if (bookEntity == null) {
+            throw new BaseServerException(ResponseCodeEnum.ERROR.getCode(), "商品不存在！");
+        }
+        String lockKey = "Book_" + bookId;
+        if (redisLock.lock(lockKey, RedisConstant.MAX_LOCK_DURATION + "")) {
+            try {
+                bookEntity.setSales(bookEntity.getSales()+delta);
+                bookDao.save(bookEntity);
+            } finally {
+                redisLock.unlock(lockKey, RedisConstant.MAX_LOCK_DURATION + "");
+            }
+        } else {
+            throw new BaseServerException(ResponseCodeEnum.ERROR.getCode(), "系统繁忙，请重试！");
+        }
     }
 }

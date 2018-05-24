@@ -82,6 +82,5 @@ public class FavoriteController extends BaseController {
             return BaseResponse.SUCCESS;
         }
         return BaseResponse.ERROR;
-
     }
 }

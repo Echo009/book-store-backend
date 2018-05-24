@@ -1,0 +1,84 @@
+HV000001: Hibernate Validator 5.3.5.Final
+Starting BookStoreApplication on Ech0-zzZ with PID 4512 (C:\my_work\idea\book-store\target\classes started by Ech0 in C:\my_work\idea\book-store)
+The following profiles are active: dev
+Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@e19bb76: startup date [Wed May 23 10:48:09 CST 2018]; root of context hierarchy
+Multiple Spring Data modules found, entering strict repository configuration mode!
+Multiple Spring Data modules found, entering strict repository configuration mode!
+Spring Data Redis - Could not safely identify store assignment for repository candidate interface cn.lan.bookstore.dao.OrderDetailDao.
+Spring Data Redis - Could not safely identify store assignment for repository candidate interface cn.lan.bookstore.dao.seller.BookDetailDao.
+Spring Data Redis - Could not safely identify store assignment for repository candidate interface cn.lan.bookstore.dao.UserBaseInfoDao.
+Spring Data Redis - Could not safely identify store assignment for repository candidate interface cn.lan.bookstore.dao.buyer.AddressDao.
+Spring Data Redis - Could not safely identify store assignment for repository candidate interface cn.lan.bookstore.dao.buyer.CartDao.
+Spring Data Redis - Could not safely identify store assignment for repository candidate interface cn.lan.bookstore.dao.buyer.FavoriteDao.
+Spring Data Redis - Could not safely identify store assignment for repository candidate interface cn.lan.bookstore.dao.seller.BookDao.
+Spring Data Redis - Could not safely identify store assignment for repository candidate interface cn.lan.bookstore.dao.seller.CategoryDao.
+Spring Data Redis - Could not safely identify store assignment for repository candidate interface cn.lan.bookstore.dao.seller.StoreDao.
+Spring Data Redis - Could not safely identify store assignment for repository candidate interface cn.lan.bookstore.dao.OrderMasterDao.
+Tomcat initialized with port(s): 899 (http)
+Starting service [Tomcat]
+Starting Servlet Engine: Apache Tomcat/8.5.16
+Initializing Spring embedded WebApplicationContext
+Root WebApplicationContext: initialization completed in 2549 ms
+Mapping servlet: 'dispatcherServlet' to [/]
+Mapping filter: 'characterEncodingFilter' to: [/*]
+Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+Mapping filter: 'httpPutFormContentFilter' to: [/*]
+Mapping filter: 'requestContextFilter' to: [/*]
+Building JPA container EntityManagerFactory for persistence unit 'default'
+HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+HHH000412: Hibernate Core {5.0.12.Final}
+HHH000206: hibernate.properties not found
+HHH000021: Bytecode provider name : javassist
+HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+HHH000228: Running hbm2ddl schema update
+Initialized JPA EntityManagerFactory for persistence unit 'default'
+Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@e19bb76: startup date [Wed May 23 10:48:09 CST 2018]; root of context hierarchy
+Mapped "{[/address/add]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.buyer.AddressController.add(cn.lan.bookstore.form.buyer.AddressForm,org.springframework.validation.BindingResult)
+Mapped "{[/address/remove]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.buyer.AddressController.remove(java.lang.Long)
+Mapped "{[/address/update]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.buyer.AddressController.update(cn.lan.bookstore.form.buyer.AddressForm,org.springframework.validation.BindingResult)
+Mapped "{[/address/all]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.buyer.AddressController.all()
+Mapped "{[/cart/add],methods=[POST]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.buyer.CartController.add(java.lang.Long,java.lang.Integer)
+Mapped "{[/cart/remove],methods=[POST]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.buyer.CartController.remove(java.lang.Long)
+Mapped "{[/cart/removeAll],methods=[POST]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.buyer.CartController.removeAll()
+Mapped "{[/cart/all]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.buyer.CartController.all()
+Mapped "{[/favorite/add]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.buyer.FavoriteController.add(boolean,java.lang.Long)
+Mapped "{[/favorite/remove]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.buyer.FavoriteController.remove(java.lang.Long,java.lang.Boolean,java.lang.Long)
+Mapped "{[/favorite/check]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.buyer.FavoriteController.check(java.lang.Boolean,java.lang.Long)
+Mapped "{[/favorite/all]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.buyer.FavoriteController.all(java.lang.Boolean)
+Mapped "{[/bookInfo/detail]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.common.BookInfoController.detail(java.lang.Long)
+Mapped "{[/bookInfo/search]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.common.BookInfoController.searchBooks(java.lang.String,java.lang.String,java.lang.Integer,java.lang.Integer)
+Mapped "{[/category/add]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.common.CategoryController.addCategory(java.lang.String)
+Mapped "{[/category/all]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.common.CategoryController.getAllCategorys()
+Mapped "{[/common/register],methods=[POST]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.common.CommonController.register(cn.lan.bookstore.form.common.UserForm,org.springframework.validation.BindingResult)
+Mapped "{[/common/logout]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.common.CommonController.logout(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+Mapped "{[/common/login],methods=[POST]}" onto public cn.lan.bookstore.response.BaseResponse<cn.lan.bookstore.dto.UserBaseInfoDTO> cn.lan.bookstore.controller.common.CommonController.login(java.lang.String,java.lang.Long,java.lang.String,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+Mapped "{[/common/userInfo]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.common.CommonController.currentUserInfo(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+Mapped "{[/image/upload],methods=[POST]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.common.ImageController.uploadImg(org.springframework.web.multipart.MultipartFile)
+Mapped "{[/storeInfo/baseInfo]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.common.StoreInfoController.baseInfo(java.lang.Long)
+Mapped "{[/userInfo/checkUserPhone]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.common.UserInfoController.checkUserPhone(java.lang.Long)
+Mapped "{[/userInfo/checkUserName]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.common.UserInfoController.checkUserName(java.lang.String)
+Mapped "{[/book/delete]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.seller.BookController.deleteBook(java.lang.Long)
+Mapped "{[/book/add],methods=[POST]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.seller.BookController.addBook(cn.lan.bookstore.form.seller.BookSimpleForm,org.springframework.validation.BindingResult)
+Mapped "{[/book/all]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.seller.BookController.findAllBooks()
+Mapped "{[/book/update],methods=[POST]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.seller.BookController.updateBook(cn.lan.bookstore.form.seller.BookSimpleForm,org.springframework.validation.BindingResult)
+Mapped "{[/book/addDetail],methods=[POST]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.seller.BookController.addDetail(cn.lan.bookstore.form.seller.BookDeatilForm,org.springframework.validation.BindingResult)
+Mapped "{[/book/updateDetail],methods=[POST]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.seller.BookController.updateDetail(cn.lan.bookstore.form.seller.BookDeatilForm,org.springframework.validation.BindingResult)
+Mapped "{[/store/checkName],methods=[POST]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.seller.StoreController.checkName(java.lang.String)
+Mapped "{[/store/info]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.seller.StoreController.info()
+Mapped "{[/store/create],methods=[POST]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.seller.StoreController.createStore(cn.lan.bookstore.form.seller.StoreForm,org.springframework.validation.BindingResult,org.apache.catalina.servlet4preview.http.HttpServletRequest)
+Mapped "{[/store/update],methods=[POST]}" onto public cn.lan.bookstore.response.BaseResponse cn.lan.bookstore.controller.seller.StoreController.updateStore(cn.lan.bookstore.form.seller.StoreForm,org.springframework.validation.BindingResult,org.apache.catalina.servlet4preview.http.HttpServletRequest)
+Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+Detected @ExceptionHandler methods in serverExceptionHandler
+Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+Registering beans for JMX exposure on startup
+Initializing ProtocolHandler ["http-nio-899"]
+Starting ProtocolHandler ["http-nio-899"]
+Using a shared selector for servlet write/read
+Tomcat started on port(s): 899 (http)
+Started BookStoreApplication in 21.082 seconds (JVM running for 22.623)

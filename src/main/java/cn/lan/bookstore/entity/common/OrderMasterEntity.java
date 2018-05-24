@@ -32,6 +32,8 @@ public class OrderMasterEntity {
 
     private Long sellerId;
 
+    private Long storeId;
+
     private Long addrId;
 
     private BigDecimal orderAmount;

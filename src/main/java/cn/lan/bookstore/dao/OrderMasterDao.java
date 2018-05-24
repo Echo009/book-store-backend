@@ -11,5 +11,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface OrderMasterDao extends JpaRepository<OrderMasterEntity,Long>,JpaSpecificationExecutor<OrderMasterEntity> {
 
-
+    OrderMasterEntity findByOrderMasterId(String orderMasterId);
 }

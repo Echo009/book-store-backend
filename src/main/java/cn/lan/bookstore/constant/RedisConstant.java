@@ -13,4 +13,10 @@ public interface RedisConstant {
      * expire time
      */
     Integer EXPIRE = 7200 ;
+    /**
+     * 加锁最长时间
+     */
+    Integer MAX_LOCK_DURATION = 60;
+
+
 }

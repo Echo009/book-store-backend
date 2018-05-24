@@ -12,12 +12,26 @@ import java.util.List;
 public interface IOrderService {
 
         /**
-         *
+         * 生成订单
          * @param cartIdList
+         * @param addressId
          * @param userId
          * @return
          */
-        OrderWrapper generateOrder(List<Long> cartIdList,Long userId);
+        OrderWrapper generateOrder(List<Long> cartIdList,Long addressId , Long userId);
 
+        /**
+         * 取消订单
+         * @param orderMasterId
+         * @param userId
+         */
+        void cancelOrder(String orderMasterId, Long userId);
+
+        /**
+         * 支付订单
+         * @param orderMasterId
+         * @param userId
+         */
+        void payOrder(String orderMasterId, Long userId);
 
 }
